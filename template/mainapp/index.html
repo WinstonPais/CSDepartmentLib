@@ -15,17 +15,9 @@
           <div class="inner">
             <h3 class="masthead-brand">CSE Library</h3>
             <nav class="nav nav-masthead justify-content-center">
-              <a class="nav-item nav-link active" href="#">Home</a>
+              <a class="nav-item nav-link active" href="{% url 'index' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'mainapp:LogInPage' %}">Log In</a>
-              <div style="margin-left: 1rem;" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sign Up
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbar-dropdown-menu">
-                  <a class="dropdown-item" href="#">Student Sign Up</a>
-                  <a class="dropdown-item" href="#">Faculty Sign Up</a>
-                </div>
-              </div>
+              <a class="nav-item nav-link" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
               <a style="margin-left: 1rem;" class="nav-item nav-link" href="#">Contact</a>
             </nav>
           </div>

@@ -6,3 +6,6 @@ def index(req):
 
 def logIn(req):
     return render(req,'mainapp/login.html')
+
+def signUp(req):
+    return render(req,'mainapp/signup.html')

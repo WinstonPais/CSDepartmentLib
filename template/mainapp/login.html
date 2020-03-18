@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" >
   <head>
     <meta charset="utf-8">
     <title>Log In</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "css/stylelogin.css" %}" type="text/css" media="all">
     <link rel="stylesheet" href="{% static "css/coverlogin.css" %}">
+    <style media="screen">
+      html {
+        height: 100%;
+      }
+      body {
+        min-height: 100%;
+      }
+      body {
+        background-image:linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url('/static/images/loginbg.webp');
+        /* background-image: '{% static "images/logInProfilePic.png" %}'; */
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+    </style>
   </head>
-  <body class="text-center" >
+  <body class="text-center" style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .9);">
         <header class="p-3">
           <div class="inner">
             <h3 class="masthead-brand">CSE Library</h3>
             <nav class="nav nav-masthead justify-content-center">
-              <a class="nav-item nav-link " href="#">Home</a>
+              <a class="nav-item nav-link " href="{% url 'index' %}">Home</a>
               <a class="nav-item nav-link active" href="{% url 'mainapp:LogInPage' %}">Log In</a>
-              <div style="margin-left: 1rem;" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sign Up
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbar-dropdown-menu">
-                  <a class="dropdown-item" href="#">Student Sign Up</a>
-                  <a class="dropdown-item" href="#">Faculty Sign Up</a>
-                </div>
-              </div>
+              <a class="nav-item nav-link" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
               <a style="margin-left: 1rem;" class="nav-item nav-link" href="#">Contact</a>
             </nav>
           </div>
