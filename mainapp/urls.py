@@ -6,4 +6,5 @@ app_name = 'mainapp'
 urlpatterns=[
     url(r'^LogIn/$',views.logIn,name='LogInPage'),
     url(r'^SignUp/$',views.signUp,name='SignUpPage'),
+    url(r'^Contact/$',views.contact,name='ContactPage'),
 ]

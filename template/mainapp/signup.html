@@ -28,16 +28,40 @@
           <a class="nav-item nav-link " href="{% url 'index' %}">Home</a>
           <a class="nav-item nav-link" href="{% url 'mainapp:LogInPage' %}">Log In</a>
           <a class="nav-item nav-link active" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
-          <a style="margin-left: 1rem;" class="nav-item nav-link" href="#">Contact</a>
+          <a style="margin-left: 1rem;" class="nav-item nav-link" href="{% url 'mainapp:ContactPage' %}">Contact</a>
         </nav>
       </div>
     </header>
-    <form class="form-signin" action="index.html" method="post">
+    <form class="form-signin" style="padding-top: 4em;" action="index.html" method="post">
       <div class="form-label-group" >
-        <input type="text" style="background-color: #242222; color:#fff;" name="usrname" class="form-control abc" placeholder="Username" required="" autofocus="">
+        <input type="text" style="background-color: #242222; color:#fff;" name="usrname" class="form-control abc" placeholder="Username" pattern="[4]{1}[S]{1}[O]{1}[0-9]{2}[A-Z]{2}[0-9]{3}" required="" autofocus="">
         <label style="color:#fff;" for="usrname">USN </label>
       </div>
-
+      <div class="form-label-group" >
+        <input type="text" style="background-color: #242222; color:#fff;" name="fname" class="form-control abc" placeholder="First Name" required="" autofocus="">
+        <label style="color:#fff;" for="fname">First Name</label>
+      </div>
+      <div class="form-label-group" >
+        <input type="text" style="background-color: #242222; color:#fff;" name="lname" class="form-control abc" placeholder="Last Name" required="" autofocus="">
+        <label style="color:#fff;" for="lname">Last Name</label>
+      </div>
+      <div class="form-label-group" >
+        <input type="email" style="background-color: #242222; color:#fff;" name="email" class="form-control abc" placeholder="Email" required="" autofocus="">
+        <label style="color:#fff;" for="email">Email</label>
+      </div>
+      <div class="form-label-group" >
+        <input type="tel" style="background-color: #242222; color:#fff;" name="phno" class="form-control abc" placeholder="Phone Number" pattern="[0-9]{10}" required="" autofocus="">
+        <label style="color:#fff;" for="phno">Phone Number</label>
+      </div>
+      <div class="form-label-group" >
+        <input type="password" style="background-color: #242222; color:#fff;" name="pass" class="form-control abc" placeholder="Password" required="" autofocus="">
+        <label style="color:#fff;" for="pass">Password</label>
+      </div>
+      <div class="form-label-group" >
+        <input type="password" style="background-color: #242222; color:#fff;" name="cpass" class="form-control abc" placeholder="Confirm Password" required="" autofocus="">
+        <label style="color:#fff;" for="cpass">Confirm Password</label>
+      </div>
+      <center><button class="btn btn-lg btn-primary btn-block" style="width: 35%;" type="submit">Sign up</button></center>
     </form>
   </body>
 </html>

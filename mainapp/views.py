@@ -9,3 +9,6 @@ def logIn(req):
 
 def signUp(req):
     return render(req,'mainapp/signup.html')
+
+def contact(req):
+    return render(req,'mainapp/contact.html')
