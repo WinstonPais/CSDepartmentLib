@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -20,9 +20,10 @@
   <body style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .9);">
     <header class="p-3">
       <div class="inner">
-        <h3 class="masthead-brand">CSE Library</h3>
+        <h3 class="masthead-brand"><img src="{% static "images/sjec-full-logo.png" %}" style="width:2.6em;height:2em;" alt="">CSE Library</h3>
         <nav class="nav nav-masthead justify-content-center">
           <a class="nav-item nav-link " href="{% url 'index' %}">Home</a>
+          <a class="nav-item nav-link" href="{% url 'mainapp:viewAllPage' %}">View Books</a>
           <a class="nav-item nav-link" href="{% url 'mainapp:LogInPage' %}">Log In</a>
           <a class="nav-item nav-link" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
           <a style="margin-left: 1rem;" class="nav-item nav-link  active" href="{% url 'mainapp:ContactPage' %}">Contact</a>

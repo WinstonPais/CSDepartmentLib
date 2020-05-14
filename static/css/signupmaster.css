@@ -18,7 +18,7 @@
     /* TWEENER - IE 10 */
     display: -webkit-flex;
     /* NEW - Chrome */
-    margin-bottom: 20px;
+    margin-bottom: 0.75em;
     padding: 2px 10px 2px 0;
     /* border-radius: 35px; */
     -webkit-border-radius: 35px;

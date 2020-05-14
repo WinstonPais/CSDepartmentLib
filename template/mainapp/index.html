@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -7,15 +7,26 @@
     <link href="{% static "css/carr.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "css/cover.css" %}">
+    <style media="screen">
+      html {
+        height: 100% !important;
+      }
+      body {
+        min-height: 100% !important;
+      }
+
+    </style>
   </head>
-  <body class="text-center">
+  <body class="text-center" style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);">
     <div class="d-flex w-100 h-100 mx-auto flex-column">
       <!-- <div class="cover-container"> -->
         <header class="p-3">
           <div class="inner">
-            <h3 class="masthead-brand">CSE Library</h3>
+            <h3 class="masthead-brand"><img src="{% static "images/sjec-full-logo.png" %}" style="width:2.6em;height:2em;" alt="">CSE Library</h3>
             <nav class="nav nav-masthead justify-content-center">
+
               <a class="nav-item nav-link active" href="{% url 'index' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'mainapp:viewAllPage' %}">View Books</a>
               <a class="nav-item nav-link" href="{% url 'mainapp:LogInPage' %}">Log In</a>
               <a class="nav-item nav-link" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
               <a style="margin-left: 1rem;" class="nav-item nav-link" href="{% url 'mainapp:ContactPage' %}">Contact</a>
@@ -76,9 +87,9 @@
         </div>
 
       </main>
-      <footer class="mastfoot mt-auto">
+      <footer style="padding-top: 1em;" class="mastfoot mt-auto">
         <div class="inner">
-          <p>Department of Computer Science Engineering SJEC</p>
+          <p>Department of Computer Science and Engineering SJEC</p>
         </div>
       </footer>
     </div>

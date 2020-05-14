@@ -21,5 +21,5 @@ from mainapp import views,urls
 urlpatterns = [
     url(r'^$',views.index,name="index"),
     path('admin/', admin.site.urls),
-    url(r'^mainApp/',include('mainapp.urls')),
+    url(r'^mainapp/',include('mainapp.urls')),
 ]

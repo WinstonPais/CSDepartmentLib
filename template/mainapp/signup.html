@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -9,56 +9,69 @@
     <link rel="stylesheet" href="{% static "css/signupmaster.css" %}">
     <title></title>
     <style media="screen">
-      html {
-        height: 100%;
+      html{
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, .9);
       }
+      html, body {min-height: 100%;}
+      body {background-size: cover;}
       body {
         min-height: 100%;
-        background:linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url('/static/images/signupbg.jpg');
+        background:linear-gradient( rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9) ), url('/static/images/signupbg.jpg');
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+      }
+      .binputrad{
+        -webkit-border-radius: 35px !important;
+        -moz-border-radius: 35px !important;
+        -ms-border-radius: 35px !important;
+        -o-border-radius: 35px !important;
       }
     </style>
   </head>
-  <body style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .9);">
+  <body>
     <header class="p-3">
       <div class="inner">
-        <h3 class="masthead-brand">CSE Library</h3>
+        <h3 class="masthead-brand"><img src="{% static "images/sjec-full-logo.png" %}" style="width:2.6em;height:2em;" alt="">CSE Library</h3>
         <nav class="nav nav-masthead justify-content-center">
           <a class="nav-item nav-link " href="{% url 'index' %}">Home</a>
+          <a class="nav-item nav-link" href="{% url 'mainapp:viewAllPage' %}">View Books</a>
           <a class="nav-item nav-link" href="{% url 'mainapp:LogInPage' %}">Log In</a>
           <a class="nav-item nav-link active" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
           <a style="margin-left: 1rem;" class="nav-item nav-link" href="{% url 'mainapp:ContactPage' %}">Contact</a>
         </nav>
       </div>
     </header>
-    <form class="form-signin" style="padding-top: 4em;" action="index.html" method="post">
-      <div class="form-label-group" >
-        <input type="text" style="background-color: #242222; color:#fff;" name="usrname" class="form-control abc" placeholder="Username" pattern="[4]{1}[S]{1}[O]{1}[0-9]{2}[A-Z]{2}[0-9]{3}" required="" autofocus="">
-        <label style="color:#fff;" for="usrname">USN </label>
+    <form class="form-signin" style="padding-top: 2em;" action="{% url 'mainapp:SignUpPage' %}" method="post">
+      {% csrf_token %}
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;" >
+        <input type="text" style="background: transparent; color:#fff;" name="username" class="form-control abc " placeholder="Username" pattern="[4]{1}[S]{1}[O]{1}[0-9]{2}[A-Z]{2}[0-9]{3}" required="" autofocus="">
+        <label style="color:#fff;" for="username">USN </label>
       </div>
-      <div class="form-label-group" >
-        <input type="text" style="background-color: #242222; color:#fff;" name="fname" class="form-control abc" placeholder="First Name" required="" autofocus="">
-        <label style="color:#fff;" for="fname">First Name</label>
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="text" style="background: transparent; color:#fff;" name="first_name" class="form-control abc" placeholder="First Name" required="" autofocus="">
+        <label style="color:#fff;" for="first_name">First Name</label>
       </div>
-      <div class="form-label-group" >
-        <input type="text" style="background-color: #242222; color:#fff;" name="lname" class="form-control abc" placeholder="Last Name" required="" autofocus="">
-        <label style="color:#fff;" for="lname">Last Name</label>
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="text" style="background: transparent; color:#fff;" name="last_name" class="form-control abc" placeholder="Last Name" required="" autofocus="">
+        <label style="color:#fff;" for="last_name">Last Name</label>
       </div>
-      <div class="form-label-group" >
-        <input type="email" style="background-color: #242222; color:#fff;" name="email" class="form-control abc" placeholder="Email" required="" autofocus="">
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="email" style="background: transparent; color:#fff;" name="email" class="form-control abc" placeholder="Email" required="" autofocus="">
         <label style="color:#fff;" for="email">Email</label>
       </div>
-      <div class="form-label-group" >
-        <input type="tel" style="background-color: #242222; color:#fff;" name="phno" class="form-control abc" placeholder="Phone Number" pattern="[0-9]{10}" required="" autofocus="">
-        <label style="color:#fff;" for="phno">Phone Number</label>
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="text" style="background: transparent; color:#fff;" name="semester" class="form-control abc" placeholder="Semester" required="" autofocus="">
+        <label style="color:#fff;" for="semester">Semester</label>
       </div>
-      <div class="form-label-group" >
-        <input type="password" style="background-color: #242222; color:#fff;" name="pass" class="form-control abc" placeholder="Password" required="" autofocus="">
-        <label style="color:#fff;" for="pass">Password</label>
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="tel" style="background: transparent; color:#fff;" name="phone" class="form-control abc" placeholder="Phone Number" pattern="[0-9]{10}" required="" autofocus="">
+        <label style="color:#fff;" for="phone">Phone Number</label>
       </div>
-      <div class="form-label-group" >
-        <input type="password" style="background-color: #242222; color:#fff;" name="cpass" class="form-control abc" placeholder="Confirm Password" required="" autofocus="">
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="password" style="background: transparent; color:#fff;" name="password" class="form-control abc" placeholder="Password" required="" autofocus="">
+        <label style="color:#fff;" for="password">Password</label>
+      </div>
+      <div class="binputrad form-label-group" style="background: rgba(255, 255, 255, 0.04) !important;">
+        <input type="password" style="background: transparent; color:#fff;" name="cpass" class="form-control abc" placeholder="Confirm Password" required="" autofocus="">
         <label style="color:#fff;" for="cpass">Confirm Password</label>
       </div>
       <center><button class="btn btn-lg btn-primary btn-block" style="width: 35%;" type="submit">Sign up</button></center>
