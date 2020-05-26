@@ -12,4 +12,5 @@ urlpatterns=[
     path('userselect/',views.userselect,name='userselectPage'),
     path('reserve/<int:pk>/',views.reserve,name='reservebook'),
     url(r'^mybooks/$',views.mybooks,name='mybooksPage'),
+    path('delete/<int:pk>/', views.dele, name='delPage'),
 ]

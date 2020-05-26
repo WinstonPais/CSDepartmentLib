@@ -16,8 +16,25 @@ def index(req):
     return render(req,'mainapp/index.html')
 
 @login_required
+def dele(req,**kwargs):
+    # print(kwargs['pk'])
+    libobj=get_object_or_404(LibraryAllBooks,AccesssionNumber=kwargs['pk'])
+    obj=get_object_or_404(BooksLent,AccesssionNumber=libobj)
+    if req.method == 'POST':
+        if req.user == obj.user:
+            obj.delete()
+            libobj.Availability = get_object_or_404(Bookavail,bk="AVAILABLE")
+            libobj.save()
+        else:
+            messages.error(req, "Cannot Delete other users book Registration")
+    return HttpResponseRedirect(reverse('mainapp:mybooksPage'))
+
+@login_required
 def mybooks(req):
-    return render(req,'mainapp/mybooks.html')
+    context={
+        'books':BooksLent.objects.all().filter(user=req.user),
+    }
+    return render(req,'mainapp/mybooks.html',context)
 
 @login_required
 def reserve(req,**kwargs):
@@ -57,7 +74,7 @@ def userselect(req):
 
 def user_logIn(request):
     if request.method == 'POST':
-        print("Hello test")
+        # print("Hello test")
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
@@ -71,7 +88,7 @@ def user_logIn(request):
                 # Send the user back to some page.
                 # In this case their homepage.
                 print("User Logged in: "+str(username))
-                return HttpResponseRedirect(reverse('mainapp:viewAllPage'))
+                return HttpResponseRedirect(reverse('mainapp:userselectPage'))
             else:
                 # If account is not active:
                 messages.error(request,'Your account is not active.')

@@ -41,7 +41,7 @@
       			<div class="text-center icon">
       			</div>
       			<div class="content-bottom">
-      				<form action="{% url 'mainapp:userselectPage' %}" method="POST">
+      				<form action="{% url 'mainapp:LogInPage' %}" method="POST">
                 {% if messages %}
                   {% for message in messages %}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -68,7 +68,7 @@
       					<div class="wthree-field">
       						<button type="submit" class="btn">Get Started</button>
       					</div>
-      					<ul class="list-login">
+      					<!-- <ul class="list-login">
       						<li class="switch-agileits">
       							<label class="switch">
       								<input type="checkbox">
@@ -80,13 +80,14 @@
       							<a href="#" class="text-right">forgot password?</a>
       						</li>
       						<li class="clearfix"></li>
-      					</ul>
+      					</ul> -->
+                <br>
       					<ul class="list-login-bottom">
       						<li class="">
-      							<a href="#" class="">Create Account</a>
+      							<a href="{% url 'mainapp:SignUpPage' %}" class="">Create Account</a>
       						</li>
       						<li class="">
-      							<a href="#" class="text-right">Need Help?</a>
+      							<a href="{% url 'mainapp:ContactPage' %}" class="text-right">Need Help?</a>
       						</li>
       						<li class="clearfix"></li>
       					</ul>
