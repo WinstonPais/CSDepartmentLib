@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static "css/cover.css" %}">
+    <style media="screen">
+      html {height:100%}
+      body {min-height:100%}
+      .customcard {color:white;}
+      .blueshadow {box-shadow: inset 0 0 1rem rgba(11, 157, 219, .85);}
+      .blackshadow {box-shadow: inset 0 0 1rem rgba(0, 0, 0, .85);}
+      .masthead {
+    margin-bottom: 2rem;
+  }
+
+
+    </style>
+  </head>
+  <body class="text-center" style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);background: linear-gradient(45deg, #2f2533 0%, #000000 100%);">
+    <div class="d-flex w-100 h-100 mx-auto flex-column">
+    <header class="p-3">
+      <div class="inner">
+        <h3 class="masthead-brand"><img src="{% static "images/sjec-full-logo.png" %}" style="width:2.6em;height:2em;" alt="">CSE Library</h3>
+        <nav class="nav nav-masthead justify-content-center">
+
+          <a class="nav-item nav-link active" href="{% url 'mainapp:mybooksPage' %}">My Books</a>
+          <a class="nav-item nav-link" href="{% url 'mainapp:userselectPage' %}">View Books</a>
+          <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+          <!-- <a class="nav-item nav-link" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
+          <a style="margin-left: 1rem;" class="nav-item nav-link" href="{% url 'mainapp:ContactPage' %}">Contact</a>-->
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <div style="padding-top: 2em;padding-bottom: 2em;" class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+        <div class="col mb-3 customcard" style="padding-bottom: 1em;">
+              <div class="card" style="background-color:#141414;border: 1px solid white;" >
+                <div class="card-body" style="box-shadow: inset 0 0 1rem rgba(61, 209, 61, .85);">
+                  <h5 class="card-title">Book title</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">author</h6>
+                  <p><strong>Lent on: </strong>date</p>
+                  <p><strong>Accesssion Number: </strong>1</p>
+                  <p><strong>Status: </strong>Pending</p>
+                  <div class="row" style="padding-top: .75em;">
+
+                    <div class="mx-auto" >
+                      <form action="#" method="post">
+                        {% csrf_token %}
+                        <input type="submit" onclick="return confirm('Are you sure to Cancel Booking?')" class="btn btn-danger" value="Cancel">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+
+
+
+</div>
+  </body>
+</html>

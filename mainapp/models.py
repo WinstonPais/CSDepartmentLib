@@ -12,12 +12,37 @@ class UserProfileInfo(models.Model):
         # Built-in attribute of django.contrib.auth.models.User !
         return self.user.username
 
+class Bookavail(models.Model):
+    bk=models.TextField(primary_key=True)
+
+    def __str__(self):
+        return str(self.bk)
+
+class bkstat(models.Model):
+    bkst=models.TextField(primary_key=True)
+
+    def __str__(self):
+        return str(self.bkst)
+
 class LibraryAllBooks(models.Model):
     AccesssionNumber = models.IntegerField(primary_key=True)
     Title = models.TextField()
     Author = models.TextField()
-    Availability = models.TextField(blank=True)
+    Availability = models.ForeignKey(Bookavail,on_delete=models.SET("nan"))
+    # Availability = models.TextField(blank=True)
 
     def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !
         return str(self.AccesssionNumber)+" "+str(self.Title)
+
+
+class BooksLent(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    AccesssionNumber = models.IntegerField(primary_key=True)
+    Lent_on = models.DateField()
+    status = models.ForeignKey(bkstat,on_delete=models.SET("Pending"))
+    # status = models.TextField()
+
+    def __str__(self):
+        # Built-in attribute of django.contrib.auth.models.User !
+        return str(self.AccesssionNumber)+" "+str(self.status)

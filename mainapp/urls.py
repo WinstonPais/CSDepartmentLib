@@ -10,4 +10,6 @@ urlpatterns=[
     url(r'^Contact/$',views.contact,name='ContactPage'),
     url(r'^viewall/$',views.viewall,name='viewAllPage'),
     path('userselect/',views.userselect,name='userselectPage'),
+    path('reserve/<int:pk>/',views.reserve,name='reservebook'),
+    url(r'^mybooks/$',views.mybooks,name='mybooksPage'),
 ]

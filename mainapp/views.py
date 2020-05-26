@@ -1,24 +1,63 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
+from datetime import date
 
-
+from django.contrib.auth.models import User
 from mainapp.forms import UserForm,UserProfileInfoForm
-from mainapp.models import LibraryAllBooks
+from mainapp.models import LibraryAllBooks,BooksLent,Bookavail,bkstat
 # Create your views here.
 
 
 def index(req):
     return render(req,'mainapp/index.html')
 
+@login_required
+def mybooks(req):
+    return render(req,'mainapp/mybooks.html')
+
+@login_required
+def reserve(req,**kwargs):
+    obj=get_object_or_404(LibraryAllBooks,AccesssionNumber=kwargs['pk'])
+    if str(obj.Availability) == "AVAILABLE" :
+        # try:
+            print("a")
+            print(get_object_or_404(Bookavail,bk="nan"))
+            obj.Availability = get_object_or_404(Bookavail,bk="nan")
+            obj.save()
+            print("b")
+            stobj=get_object_or_404(bkstat,bkst="Pending")
+            print("heyyy")
+            print(req.user)
+            obj2=BooksLent(user=get_object_or_404(User,username=req.user),AccesssionNumber=kwargs['pk'],Lent_on=date.today(),status=stobj)
+            obj2.save()
+            print("c")
+            messages.success(req, "Book Reserved Collect The book from the library and confirm the Booking")
+        # except:
+        #     messages.error(req, "Invalid Input")
+    else:
+        messages.error(req, "Unknown Error")
+    context={
+        'objects':LibraryAllBooks.objects.all()
+    }
+    return render(req,'mainapp/userselect.html',context)
+
+@login_required
 def userselect(req):
-    return render(req,'mainapp/userselect.html')
+    # ob=LibraryAllBooks.objects.all()
+    # for o in ob:
+    #     print(o.Availability)
+    context={
+        'objects':LibraryAllBooks.objects.all(),
+    }
+    return render(req,'mainapp/userselect.html',context)
 
 def user_logIn(request):
     if request.method == 'POST':
+        print("Hello test")
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
@@ -31,6 +70,7 @@ def user_logIn(request):
                 login(request,user)
                 # Send the user back to some page.
                 # In this case their homepage.
+                print("User Logged in: "+str(username))
                 return HttpResponseRedirect(reverse('mainapp:viewAllPage'))
             else:
                 # If account is not active:
@@ -79,3 +119,10 @@ def viewall(req):
         'objects':LibraryAllBooks.objects.all()
     }
     return render(req,'mainapp/viewall.html',context)
+
+@login_required
+def user_logout(request):
+    # Log out the user.
+    logout(request)
+    # Return to homepage.
+    return HttpResponseRedirect(reverse('index'))
