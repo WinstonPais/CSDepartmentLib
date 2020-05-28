@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'csDepLib',
         'USER':'postgres',
-        'PASSWORD':'',
+        'PASSWORD':'qwerty12345',
         'HOST':'localhost',
         'PORT':'5432'
     }
@@ -136,3 +136,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
+'''
+#email
+EMAIL_HOST = 'smtp.live.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'enteremailhere'
+EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
+'''
