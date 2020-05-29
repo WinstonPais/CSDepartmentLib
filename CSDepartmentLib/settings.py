@@ -137,12 +137,10 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-'''
+
 #email
-EMAIL_HOST = 'smtp.live.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'enteremailhere'
+EMAIL_HOST_USER = '17cs124.winston@sjec.ac.in'
 EMAIL_HOST_PASSWORD = ''
-# EMAIL_USE_SSL = True
 EMAIL_USE_TLS = True
-'''

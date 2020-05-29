@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% autoescape off %}
+    Hi {{ user.username }},
+    Please click on the link to confirm your registration,
+    http://{{ domain }}{% url 'mainapp:activate' uidb64=uid token=token %}
+    {% endautoescape %}
+  </body>
+</html>

@@ -43,15 +43,24 @@
       			<div class="content-bottom">
       				<form action="{% url 'mainapp:LogInPage' %}" method="POST">
                 {% if messages %}
-                  {% for message in messages %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      {{ message }}
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                  {% endfor %}
-                {% endif %}
+                    {% for message in messages %}
+                      {% if message.tags == 'success' %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          {{ message }}
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                      {% else %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          {{ message }}
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
                 {% csrf_token %}
       					<div class="field-group">&nbsp
                   <img src="{% static "images/logInProfilePic.png" %}" alt="" width=40 height=40>

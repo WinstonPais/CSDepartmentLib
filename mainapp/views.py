@@ -5,8 +5,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from datetime import date
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text
 
 from django.contrib.auth.models import User
+from .tokens import account_activation_token
 from mainapp.forms import UserForm,UserProfileInfoForm
 from mainapp.models import LibraryAllBooks,BooksLent,Bookavail,bkstat
 # Create your views here.
@@ -107,7 +113,8 @@ def signUp(req):
         profile_form = UserProfileInfoForm(data=req.POST)
         if user_form.is_valid() and profile_form.is_valid():
             # Save User Form to Database
-            user = user_form.save()
+            user = user_form.save(commit=False)
+            user.is_active = False
             # Hash the password
             user.set_password(user.password)
             # Update with Hashed password
@@ -115,6 +122,25 @@ def signUp(req):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
+
+
+
+
+            current_site = get_current_site(req)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('mainapp/acc_active_email.html', {'user': user,
+                                                                 'domain': current_site.domain,
+                                                                 'uid':force_text(urlsafe_base64_encode(force_bytes(user.pk))),#urlsafe_base64_encode(force_bytes(user.pk)),
+                                                                 'token':account_activation_token.make_token(user),
+                                                                 })
+
+            to_email = user_form.cleaned_data.get('email')
+            email = EmailMessage(mail_subject, message, to=[to_email])
+            email.content_subtype = "html"
+            email.send()
+            messages.success(req, "Please confirm your email address to complete the registration")
+
+
 
             return HttpResponseRedirect(reverse('mainapp:LogInPage'))
         else:
@@ -127,6 +153,22 @@ def signUp(req):
         profile_form = UserProfileInfoForm()
 
     return render(req,'mainapp/signup.html')
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 def contact(req):
     return render(req,'mainapp/contact.html')
