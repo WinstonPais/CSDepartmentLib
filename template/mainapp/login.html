@@ -42,6 +42,7 @@
       			</div>
       			<div class="content-bottom">
       				<form action="{% url 'mainapp:LogInPage' %}" method="POST">
+              {% csrf_token %}
                 {% if messages %}
                     {% for message in messages %}
                       {% if message.tags == 'success' %}
@@ -61,7 +62,6 @@
                       {% endif %}
                     {% endfor %}
                   {% endif %}
-                {% csrf_token %}
       					<div class="field-group">&nbsp
                   <img src="{% static "images/logInProfilePic.png" %}" alt="" width=40 height=40>
       						<div class="wthree-field">

@@ -23,7 +23,6 @@ def index(req):
 
 @login_required
 def dele(req,**kwargs):
-    # print(kwargs['pk'])
     libobj=get_object_or_404(LibraryAllBooks,AccesssionNumber=kwargs['pk'])
     obj=get_object_or_404(BooksLent,AccesssionNumber=libobj)
     if req.method == 'POST':
@@ -32,7 +31,9 @@ def dele(req,**kwargs):
             libobj.Availability = get_object_or_404(Bookavail,bk="AVAILABLE")
             libobj.save()
         else:
-            messages.error(req, "Cannot Delete other users book Registration")
+            messages.error(req, "Cannot Delete other user's book Registration")
+    else:
+        messages.error(req, "Unknown Error")
     return HttpResponseRedirect(reverse('mainapp:mybooksPage'))
 
 @login_required
@@ -45,24 +46,21 @@ def mybooks(req):
 @login_required
 def reserve(req,**kwargs):
     obj=get_object_or_404(LibraryAllBooks,AccesssionNumber=kwargs['pk'])
-    if str(obj.Availability) == "AVAILABLE" :
-        # try:
-            print("a")
-            print(get_object_or_404(Bookavail,bk="nan"))
-            obj.Availability = get_object_or_404(Bookavail,bk="nan")
-            obj.save()
-            print("b")
-            stobj=get_object_or_404(bkstat,bkst="Pending")
-            print("heyyy")
-            print(req.user)
-            obj2=BooksLent(user=get_object_or_404(User,username=req.user),AccesssionNumber=kwargs['pk'],Lent_on=date.today(),status=stobj)
-            obj2.save()
-            print("c")
-            messages.success(req, "Book Reserved Collect The book from the library and confirm the Booking")
-        # except:
-        #     messages.error(req, "Invalid Input")
+    numberOfBooksPendingForUser=len(BooksLent.objects.filter(user=req.user,status=get_object_or_404(bkstat,bkst="Pending")))
+    if numberOfBooksPendingForUser >= 3:
+        messages.error(req, "Max pending books can be 3 collect your pending books first from the librarian.")
     else:
-        messages.error(req, "Unknown Error")
+        if str(obj.Availability) == "AVAILABLE" :
+                print(get_object_or_404(Bookavail,bk="nan"))
+                obj.Availability = get_object_or_404(Bookavail,bk="nan")
+                obj.save()
+                stobj=get_object_or_404(bkstat,bkst="Pending")
+                print(req.user)
+                obj2=BooksLent(user=get_object_or_404(User,username=req.user),AccesssionNumber=kwargs['pk'],Lent_on=date.today(),status=stobj)
+                obj2.save()
+                messages.success(req, "Book Reserved Collect The book from the library and confirm the Booking")
+        else:
+            messages.error(req, "Unknown Error")
     context={
         'objects':LibraryAllBooks.objects.all()
     }
@@ -70,9 +68,6 @@ def reserve(req,**kwargs):
 
 @login_required
 def userselect(req):
-    # ob=LibraryAllBooks.objects.all()
-    # for o in ob:
-    #     print(o.Availability)
     context={
         'objects':LibraryAllBooks.objects.all(),
     }
@@ -80,7 +75,6 @@ def userselect(req):
 
 def user_logIn(request):
     if request.method == 'POST':
-        # print("Hello test")
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
@@ -88,18 +82,22 @@ def user_logIn(request):
         # If we have a user
         if user:
             #Check it the account is active
-            if user.is_active:
+            # if user.is_active:
                 # Log the user in.
-                login(request,user)
+            login(request,user)
                 # Send the user back to some page.
                 # In this case their homepage.
-                print("User Logged in: "+str(username))
-                return HttpResponseRedirect(reverse('mainapp:userselectPage'))
-            else:
+            print("User Logged in: "+str(username))
+            return HttpResponseRedirect(reverse('mainapp:userselectPage'))
+            # else:
                 # If account is not active:
+                # messages.error(request,'Your account is not active.')
+                # return redirect('mainapp:LogInPage')
+        else:
+            ob = User.objects.all().filter(username=username)
+            if len(ob) != 0:
                 messages.error(request,'Your account is not active.')
                 return redirect('mainapp:LogInPage')
-        else:
             print("Someone tried to login and failed.")
             print("They used username: {} and password: {}".format(username,password))
             messages.error(request,'Incorrect username or password')

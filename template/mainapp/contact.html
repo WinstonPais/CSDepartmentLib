@@ -15,9 +15,17 @@
       body {
         min-height: 100%;
       }
+      .center {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
     </style>
   </head>
-  <body style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .9);">
+  <body style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .9);    background: linear-gradient(45deg, #2f2533 0%, #000000 100%);">
     <header class="p-3">
       <div class="inner">
         <h3 class="masthead-brand"><img src="{% static "images/sjec-full-logo.png" %}" style="width:2.6em;height:2em;" alt="">CSE Library</h3>
@@ -30,5 +38,14 @@
         </nav>
       </div>
     </header>
+    <div class="card center" style="width: 18rem;background-color:#333333;">
+      <div class="card-body">
+        <h5 class="card-title">Winston Sebastian Pais</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Website Developer</h6>
+        <h6 class="card-subtitle mb-2 text-muted">17cs124.winston@sjec.ac.in</h6>
+        <p class="card-text">To report an issue go to the below link</p>
+        <a href="https://github.com/WinstonPais/CSDepartmentLib/issues" class="card-link">Issues (github)</a>
+      </div>
+    </div>
   </body>
 </html>
