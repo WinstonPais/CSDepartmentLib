@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -132,7 +133,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
@@ -145,3 +146,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('SJEC_EMAIL_ID')
 EMAIL_HOST_PASSWORD = os.environ.get('SJEC_EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
+
+django_heroku.settings(locals())
