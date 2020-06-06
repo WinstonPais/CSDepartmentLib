@@ -21,7 +21,7 @@ STATIC_DIR=os.path.join(BASE_DIR,"static")
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd5jw92_09q(rvfa=08!tet9)06oy3-8_y!7qdqpwjjntpw&fuk'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') #'d5jw92_09q(rvfa=08!tet9)06oy3-8_y!7qdqpwjjntpw&fuk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'csDepLib',
         'USER':'postgres',
-        'PASSWORD':'',
+        'PASSWORD':os.environ.get('POSTGRES_PASSWORD'),
         'HOST':'localhost',
         'PORT':'5432'
     }
@@ -141,6 +141,6 @@ STATICFILES_DIRS = [
 #email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '17cs124.winston@sjec.ac.in'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = os.environ.get('SJEC_EMAIL_ID')
+EMAIL_HOST_PASSWORD = os.environ.get('SJEC_EMAIL_PASSWORD')
 EMAIL_USE_TLS = True

@@ -37,7 +37,7 @@ class LibraryAllBooks(models.Model):
 
 
 class BooksLent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     AccesssionNumber = models.ForeignKey(LibraryAllBooks,on_delete=models.CASCADE,primary_key=True)
     # AccesssionNumber = models.IntegerField(primary_key=True)
     Lent_on = models.DateField()

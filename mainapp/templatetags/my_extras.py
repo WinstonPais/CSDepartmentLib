@@ -7,3 +7,10 @@ def return_item(l):
         return str(l)
     except:
         return None
+
+@register.filter(name='len')
+def return_len(l):
+    try:
+        return len(l)
+    except:
+        return None

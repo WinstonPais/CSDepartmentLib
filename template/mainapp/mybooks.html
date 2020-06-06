@@ -30,8 +30,6 @@
           <a class="nav-item nav-link active" href="{% url 'mainapp:mybooksPage' %}">My Books</a>
           <a class="nav-item nav-link" href="{% url 'mainapp:userselectPage' %}">View Books</a>
           <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
-          <!-- <a class="nav-item nav-link" href="{% url 'mainapp:SignUpPage' %}">Sign Up</a>
-          <a style="margin-left: 1rem;" class="nav-item nav-link" href="{% url 'mainapp:ContactPage' %}">Contact</a>-->
         </nav>
       </div>
     </header>
@@ -55,11 +53,14 @@
             {% endif %}
           {% endfor %}
         {% endif %}
+      {% if books|len == 0 %}
+        <p>Looks Empty :( ,Click <a href="{% url 'mainapp:userselectPage' %}">here</a> to select books</p>
+      {% endif %}
       <div style="padding-top: 2em;padding-bottom: 2em;" class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
         {% for book in books %}
           <div class="col mb-3 customcard" style="padding-bottom: 1em;">
-            <div class="card" style="background-color:#141414;border: 1px solid white;" >
-              <div class="card-body" style="box-shadow: inset 0 0 1rem rgba(61, 209, 61, .85);">
+            <div class="card" style="background-image:linear-gradient(135deg, #221f5ae0 0%, #000000 100%);border: 1px solid #15393e;" >
+              <div class="card-body" style="box-shadow: inset 0 0 1rem rgba(0, 0, 0, .85);">
                 <h5 class="card-title">{{ book.AccesssionNumber.Title }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ book.AccesssionNumber.Author }}</h6>
                 <p><strong>Lent on: </strong>{{ book.Lent_on }}</p>

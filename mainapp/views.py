@@ -51,12 +51,12 @@ def reserve(req,**kwargs):
         messages.error(req, "Max pending books can be 3 collect your pending books first from the librarian.")
     else:
         if str(obj.Availability) == "AVAILABLE" :
-                print(get_object_or_404(Bookavail,bk="nan"))
+                # print(get_object_or_404(Bookavail,bk="nan"))
                 obj.Availability = get_object_or_404(Bookavail,bk="nan")
                 obj.save()
                 stobj=get_object_or_404(bkstat,bkst="Pending")
-                print(req.user)
-                obj2=BooksLent(user=get_object_or_404(User,username=req.user),AccesssionNumber=kwargs['pk'],Lent_on=date.today(),status=stobj)
+                # print(req.user)
+                obj2=BooksLent(user=get_object_or_404(User,username=req.user),AccesssionNumber=get_object_or_404(LibraryAllBooks,AccesssionNumber=kwargs['pk']),Lent_on=date.today(),status=stobj)
                 obj2.save()
                 messages.success(req, "Book Reserved Collect The book from the library and confirm the Booking")
         else:
@@ -81,10 +81,15 @@ def user_logIn(request):
 
         # If we have a user
         if user:
+            login(request,user)
+
+            if user.is_superuser:
+                return HttpResponseRedirect('/admin/')
+
             #Check it the account is active
             # if user.is_active:
                 # Log the user in.
-            login(request,user)
+
                 # Send the user back to some page.
                 # In this case their homepage.
             print("User Logged in: "+str(username))
@@ -125,7 +130,7 @@ def signUp(req):
 
 
             current_site = get_current_site(req)
-            mail_subject = 'Activate your blog account.'
+            mail_subject = 'Activate your SJEC CS Dept Library account.'
             message = render_to_string('mainapp/acc_active_email.html', {'user': user,
                                                                  'domain': current_site.domain,
                                                                  'uid':force_text(urlsafe_base64_encode(force_bytes(user.pk))),#urlsafe_base64_encode(force_bytes(user.pk)),
