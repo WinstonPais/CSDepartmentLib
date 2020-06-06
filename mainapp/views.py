@@ -14,7 +14,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.models import User
 from .tokens import account_activation_token
 from mainapp.forms import UserForm,UserProfileInfoForm
-from mainapp.models import LibraryAllBooks,BooksLent,Bookavail,bkstat
+from mainapp.models import LibraryAllBooks,BooksLent,Bookavail,bkstat,UserProfileInfo
 # Create your views here.
 
 
@@ -40,7 +40,12 @@ def dele(req,**kwargs):
 def mybooks(req):
     context={
         'books':BooksLent.objects.all().filter(user=req.user),
+        'user':req.user,
+        # User.objects.get(username=req.user.username),
+
+        'additionalDetails':UserProfileInfo.objects.get(user=req.user),
     }
+    # print(help(User.objects.get(username=req.user.username)))
     return render(req,'mainapp/mybooks.html',context)
 
 @login_required
