@@ -7,7 +7,7 @@ bcrypt=3.1.7=pypi_0
 ca-certificates=2020.1.1=0
 certifi=2020.4.5.1=py38_0
 cffi=1.14.0=pypi_0
-django=3.0.3=py_0
+django=3.0.7=py_0
 gunicorn=20.0.4=pypi_0
 krb5=1.16.4=hc04afaa_0
 libpq=11.2=h3235a2c_0
