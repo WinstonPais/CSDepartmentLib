@@ -24,7 +24,7 @@ STATIC_DIR=os.path.join(BASE_DIR,"static")
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') #'d5jw92_09q(rvfa=08!tet9)06oy3-8_y!7qdqpwjjntpw&fuk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #os.environ.get('DEBUG_VALUE')
 
 ALLOWED_HOSTS = []
 
