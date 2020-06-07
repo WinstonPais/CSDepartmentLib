@@ -1,0 +1,2128 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.1
+-- Dumped by pg_dump version 12.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: mainapp_bkstat; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainapp_bkstat (
+    bkst text NOT NULL
+);
+
+
+ALTER TABLE public.mainapp_bkstat OWNER TO postgres;
+
+--
+-- Name: mainapp_bookavail; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainapp_bookavail (
+    bk text NOT NULL
+);
+
+
+ALTER TABLE public.mainapp_bookavail OWNER TO postgres;
+
+--
+-- Name: mainapp_bookslent; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainapp_bookslent (
+    "AccesssionNumber_id" integer NOT NULL,
+    "Lent_on" date NOT NULL,
+    status_id text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.mainapp_bookslent OWNER TO postgres;
+
+--
+-- Name: mainapp_libraryallbooks; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainapp_libraryallbooks (
+    "AccesssionNumber" integer NOT NULL,
+    "Title" text NOT NULL,
+    "Author" text NOT NULL,
+    "Availability_id" text NOT NULL
+);
+
+
+ALTER TABLE public.mainapp_libraryallbooks OWNER TO postgres;
+
+--
+-- Name: mainapp_userprofileinfo; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainapp_userprofileinfo (
+    id integer NOT NULL,
+    phone character varying(10) NOT NULL,
+    semester character varying(1),
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.mainapp_userprofileinfo OWNER TO postgres;
+
+--
+-- Name: mainapp_userprofileinfo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.mainapp_userprofileinfo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.mainapp_userprofileinfo_id_seq OWNER TO postgres;
+
+--
+-- Name: mainapp_userprofileinfo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.mainapp_userprofileinfo_id_seq OWNED BY public.mainapp_userprofileinfo.id;
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: mainapp_userprofileinfo id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_userprofileinfo ALTER COLUMN id SET DEFAULT nextval('public.mainapp_userprofileinfo_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add user profile info	7	add_userprofileinfo
+26	Can change user profile info	7	change_userprofileinfo
+27	Can delete user profile info	7	delete_userprofileinfo
+28	Can view user profile info	7	view_userprofileinfo
+29	Can add library all books	8	add_libraryallbooks
+30	Can change library all books	8	change_libraryallbooks
+31	Can delete library all books	8	delete_libraryallbooks
+32	Can view library all books	8	view_libraryallbooks
+33	Can add books lent	9	add_bookslent
+34	Can change books lent	9	change_bookslent
+35	Can delete books lent	9	delete_bookslent
+36	Can view books lent	9	view_bookslent
+37	Can add bookavail	10	add_bookavail
+38	Can change bookavail	10	change_bookavail
+39	Can delete bookavail	10	delete_bookavail
+40	Can view bookavail	10	view_bookavail
+41	Can add bkstat	11	add_bkstat
+42	Can change bkstat	11	change_bkstat
+43	Can delete bkstat	11	delete_bkstat
+44	Can view bkstat	11	view_bkstat
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+19	argon2$argon2i$v=19$m=512,t=2,p=2$V1BzRDBXNmdrdjYz$JaGL5ElHUZv+NXmHNtce7A	2020-06-07 00:25:28+05:30	t	winstonpais	Winston	Pais	winstonpais@live.in	t	t	2020-06-04 01:31:57+05:30
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+28	2020-06-04 01:32:53.503411+05:30	5	winston	3		4	19
+29	2020-06-04 14:45:23.13302+05:30	2	2 Cryptography and network security	2	[{"changed": {"fields": ["Availability"]}}]	8	19
+30	2020-06-06 19:31:37.712794+05:30	3	3 Digital Image Processing	2	[{"changed": {"fields": ["Availability"]}}]	8	19
+31	2020-06-07 00:26:10.782396+05:30	19	winstonpais	2	[{"changed": {"fields": ["First name", "Last name"]}}]	4	19
+32	2020-06-07 00:26:45.206214+05:30	15	winstonpais	1	[{"added": {}}]	7	19
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	mainapp	userprofileinfo
+8	mainapp	libraryallbooks
+9	mainapp	bookslent
+10	mainapp	bookavail
+11	mainapp	bkstat
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2020-03-16 21:51:14.011603+05:30
+2	auth	0001_initial	2020-03-16 21:51:14.17473+05:30
+3	admin	0001_initial	2020-03-16 21:51:14.360646+05:30
+4	admin	0002_logentry_remove_auto_add	2020-03-16 21:51:14.397344+05:30
+5	admin	0003_logentry_add_action_flag_choices	2020-03-16 21:51:14.406085+05:30
+6	contenttypes	0002_remove_content_type_name	2020-03-16 21:51:14.428533+05:30
+7	auth	0002_alter_permission_name_max_length	2020-03-16 21:51:14.436348+05:30
+8	auth	0003_alter_user_email_max_length	2020-03-16 21:51:14.447079+05:30
+9	auth	0004_alter_user_username_opts	2020-03-16 21:51:14.467571+05:30
+10	auth	0005_alter_user_last_login_null	2020-03-16 21:51:14.47834+05:30
+11	auth	0006_require_contenttypes_0002	2020-03-16 21:51:14.480259+05:30
+12	auth	0007_alter_validators_add_error_messages	2020-03-16 21:51:14.489045+05:30
+13	auth	0008_alter_user_username_max_length	2020-03-16 21:51:14.515424+05:30
+14	auth	0009_alter_user_last_name_max_length	2020-03-16 21:51:14.527107+05:30
+15	auth	0010_alter_group_name_max_length	2020-03-16 21:51:14.53689+05:30
+16	auth	0011_update_proxy_permissions	2020-03-16 21:51:14.545651+05:30
+17	sessions	0001_initial	2020-03-16 21:51:14.562277+05:30
+18	mainapp	0001_initial	2020-04-17 12:28:15.907611+05:30
+19	mainapp	0002_libraryallbooks	2020-05-12 06:55:12.90845+05:30
+20	mainapp	0003_bookslent	2020-05-26 10:50:04.191415+05:30
+21	mainapp	0004_bookavail	2020-05-26 10:50:04.215351+05:30
+22	mainapp	0005_delete_bookavail	2020-05-26 10:50:04.235263+05:30
+23	mainapp	0006_bookavail	2020-05-26 10:50:04.252218+05:30
+24	mainapp	0007_delete_bookavail	2020-05-26 10:50:04.268174+05:30
+25	mainapp	0008_bookavail	2020-05-26 10:54:19.543173+05:30
+26	mainapp	0009_auto_20200526_1055	2020-05-26 10:55:31.174883+05:30
+27	mainapp	0010_bkstat	2020-05-26 11:03:18.33339+05:30
+28	mainapp	0011_auto_20200526_1106	2020-05-26 11:06:59.171344+05:30
+29	mainapp	0012_auto_20200526_2025	2020-05-26 20:26:02.201731+05:30
+30	mainapp	0013_auto_20200606_1932	2020-06-06 19:32:38.16168+05:30
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+5qpzhyciyo58dvzeg922uhp81iud5n2b	OTgzYzJlMTAzZWM0YzA1MTNjNGRhZmNjN2FkNTI1MjlhNTQwMjdkZjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmYjQyM2RhMzhkN2I3YzQ3MjZjYzM3MmU1MzlmOTcwMDNkN2ExNzY0In0=	2020-05-01 13:59:19.48195+05:30
+hz4sfpn5fgsbxn7l3pizeymx9m5lu49o	MTlkZDk2OTI5NGRlMDE0M2E0ODY1M2Q3MGIxZWRjYzZlMWEyMjdmMzp7Il9hdXRoX3VzZXJfaWQiOiIxOSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiODkwMDM5YWVhYzFjNmI3Yjc0OTU1M2VjMmYyMDZmZDhmYmUwM2NlMCJ9	2020-06-21 00:25:28.811156+05:30
+5tpagoioon87otx8vzehtsbvcltfckmf	Zjk0ZDAwMWI0NzdmOGU3MjdmYzg1ZDZkZjk4ODBlN2Y1OWI5OWYxZjp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI4NWMzYTBiY2I5Y2NjOGVmNDZkMTUzMmI2YWUwM2QyMDJhOTdhOWUzIn0=	2020-06-18 00:03:05.927643+05:30
+\.
+
+
+--
+-- Data for Name: mainapp_bkstat; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainapp_bkstat (bkst) FROM stdin;
+Pending
+Confirmed
+\.
+
+
+--
+-- Data for Name: mainapp_bookavail; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainapp_bookavail (bk) FROM stdin;
+nan
+AVAILABLE
+\.
+
+
+--
+-- Data for Name: mainapp_bookslent; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainapp_bookslent ("AccesssionNumber_id", "Lent_on", status_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mainapp_libraryallbooks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainapp_libraryallbooks ("AccesssionNumber", "Title", "Author", "Availability_id") FROM stdin;
+1	The 8051 microcontroller and embedded systems	Mohammed Ali Mazzidi, Janice G Mazadi	nan
+5	Data Structures and Algorithm Analysis in C++	Markallen Weiss	AVAILABLE
+6	Visual Modelling with Rational Rose 2002 and UML	Jerry Quatrini	AVAILABLE
+7	Genetic Algorithms	David E Goldberg	AVAILABLE
+8	Biomedical Digital Signal Processing	Willis J Tompkins	AVAILABLE
+9	Fundamentals of Embedded Software	Daniel W Lewis	AVAILABLE
+10	Digital Lab Primer	K A Krishnamurthy	AVAILABLE
+11	The C programming Language	Brian Kerningham, Dennis Ritche	AVAILABLE
+12	The art of Computer programming vol-3	Donald E Knuth	AVAILABLE
+13	The art of Computer programming vol-1	Donald E Knuth	AVAILABLE
+14	The art of Computer programming vol-2	Donald E Knuth	AVAILABLE
+15	Algorithms + data structures = programs	Nicklans Wirth	AVAILABLE
+16	Artificial Intelligence	Eugine Charmionk, Drew McDermott	AVAILABLE
+17	The UNIX programming environment	Brian Kerningham, Rob Pike	AVAILABLE
+18	Digital Image Processing	Nick Efford	AVAILABLE
+19	Optical Networks	Vylers Black	AVAILABLE
+20	Visual Basic .NET	Shirish Chavan	AVAILABLE
+21	Use case modelling	Kurt Bittner, Ian Spence	AVAILABLE
+23	Artificial Intelligence	George R Luger	AVAILABLE
+24	The UML reference manual	James Rumbaugh, Ivan Jacobson	AVAILABLE
+25	Internet working with TCP/IP - vol 3	Douglas E Connar, David Stevans	AVAILABLE
+26	Internet working with TCP/IP - vol 2	Douglas E Connar, David Stevans	AVAILABLE
+27	Adaptive Filter Theory	Simon Haykin	AVAILABLE
+28	Speech and Language Processing	Daniel Jurafsky, James Martin	AVAILABLE
+29	Computer Networks	Douglas E Comer	AVAILABLE
+30	Computer Graphics	Foley	AVAILABLE
+31	Multimedia Systems	John F K Butord	AVAILABLE
+32	Data structures and Algorithm Analysis in C	Mark Allen Weiss	AVAILABLE
+33	Turbo C++ (User's guide)	Borland International	AVAILABLE
+34	Advanced Microprocessors	Atul P Godse	AVAILABLE
+35	The essence of compilers	Robin Hunter	AVAILABLE
+36	The essence of Computer Graphics	Peter Cooley	AVAILABLE
+37	Fundamentals of Digital Image Processing	Anil K Jain	AVAILABLE
+38	Wireless Digital Communications	Dr Kamilo Fehen	AVAILABLE
+39	Wireless Communication Networks	William Stallings	AVAILABLE
+40	IBM PC Assembly Language and Programming	Peter Abel	AVAILABLE
+41	The C puzzle book	Alan Fever	AVAILABLE
+42	Enterprize modelling with UML	Chris Marshall	AVAILABLE
+43	Mobile and wireless design essentials	Martyn Mallick	AVAILABLE
+44	OOP with C++	M P Bhave, Patekar	AVAILABLE
+45	Internet working with TCP/IP - vol 3	Douglas E Cooner, David Steven	AVAILABLE
+46	Principles of Mobile Computing	Uwe Hansmann, Lather Mark	AVAILABLE
+47	The art of Software Architectures	Stephen Albin	AVAILABLE
+48	Data Communications, Computer Networks and Open Systems	Fred Halsalt	AVAILABLE
+49	The XML handbook	Charles E Goldfarl, Paul Prescod	AVAILABLE
+50	Data communications and distributed networks	Vylers Black	AVAILABLE
+51	Structured Computer organization	Andrew S Tannenbaum	AVAILABLE
+52	XML and ASP .NET	Kirk Allen Evans, Ashwin Kamanna, Joel Muller	AVAILABLE
+53	UML -2 Bible	Tom Pender	AVAILABLE
+54	Assembly Language	William B Jones	AVAILABLE
+55	Computer Algorithms - Introduction to Design and Analysis	Sara Baase Allen Van Gelder	AVAILABLE
+56	Multimedia Communications	Fred Halsalt	AVAILABLE
+57	Professional C#	Simon Robinson	AVAILABLE
+58	Fundamentals of Neural Networks	Laurence Fausett	AVAILABLE
+59	Artificial Neural Networks	Yagnanarayana	AVAILABLE
+60	Advanced Microprocessors	A P Godse , D A Godse	AVAILABLE
+61	Advanced Microprocessors	A P Godse , D A Godse	AVAILABLE
+62	Computer Organization	A P Godse , D A Godse	AVAILABLE
+63	Computer Organization	A P Godse , D A Godse	AVAILABLE
+64	Computer Organization	P R Devale	AVAILABLE
+65	Computer Organization	P R Devale	AVAILABLE
+66	Data communications and distributed networks	Vylers Black	AVAILABLE
+67	Theory of Computer Science	K P Mishra, N Chandrasekeran	AVAILABLE
+68	SONET ISDH & ATM	Stamatios V, Kartalopoulos	AVAILABLE
+69	Electronic Circuits	R D Sudhakar Sammuel, U B Mahadevaswamy Nattavasu	AVAILABLE
+70	Electronic Circuits	R D Sudhakar Sammuel, U B Mahadevaswamy Nattavasu	AVAILABLE
+71	Thinking of C++	Sunil K Pandey	AVAILABLE
+72	Object Oriented programming with C++	T S B Sudarshan	AVAILABLE
+73	Computer Concepts and C programming	K Chandrasekaran	AVAILABLE
+74	Computer Organization	L Krishnanda	AVAILABLE
+75	Data Structures with C	A A Puntambekar	AVAILABLE
+76	Logic Design	R D Sudhakar Sammuel	AVAILABLE
+77	Java 2 - The Complete Reference	Herbert Schildt	AVAILABLE
+78	C - The Complete Reference	Herbert Schildt	AVAILABLE
+79	Programming with Java	E Balaguruswamy	AVAILABLE
+80	Software Engineering	Ian Sommerville	AVAILABLE
+81	C++ Primer	Stanley B Lippman, Joser Logioc	AVAILABLE
+82	Object Oriented programming with C++	E Balaguruswamy	AVAILABLE
+83	Computer Organization	Earl Hamacher	AVAILABLE
+84	The design of Unix Operating System	Maurice J Bach	AVAILABLE
+85	System Software	Leland L Beck	AVAILABLE
+86	Communication Networks	Alberto Leon Garcia	AVAILABLE
+87	Microprocessors and Interfacing	Douglas V Hall	AVAILABLE
+88	The Intel Microprocessors	Barry B Brey	AVAILABLE
+4	Embedded LINUX	Craig Hollabaugh	AVAILABLE
+89	Lex and Yacc	John R Levine	nan
+90	Discrete Event System Simulation	Jarry Bants, John Carson	AVAILABLE
+91	Discrete Event System Simulation	Jarry Bants, John Carson	AVAILABLE
+92	Procedural Elements of Computer Graphics	David E Rogers	AVAILABLE
+93	Data Structures and Algorithms	Alfred V Aho, John Hoperoft	AVAILABLE
+94	Introduction to Automata Theory, Languages and Computation	John Hoperoft, Rajeev Motwani	AVAILABLE
+95	Operating Systems Concepts	Silberschatz	AVAILABLE
+96	Advanced Microprocessors	Daniel Jabale	nan
+97	Software Engineering	Roger Pressman	AVAILABLE
+98	The design and analysis of alsorithms	Anany	AVAILABLE
+99	Computer Graphics	Zhigang Xiang, Roy	AVAILABLE
+100	Compilers	Alfred Aho, Ravi Sethi	AVAILABLE
+101	Compilers	Alfred Aho, Ravi Sethi	AVAILABLE
+102	Compiuter Algorithms	Sara Baase, Allen Van Gelder	AVAILABLE
+103	Programming with ANSI C	E Balaguruswamy	AVAILABLE
+104	Programming with ANSI C	E Balaguruswamy	AVAILABLE
+105	C++ The Complete Reference	Herbert Schildt	AVAILABLE
+106	Data Structures using C/C++	Yedidyah Langsam	AVAILABLE
+107	Advanced Microprocessors and Peripherals	A K Ray, K M Bhurchandi	AVAILABLE
+108	Advanced Microprocessors and Peripherals	A K Ray, K M Bhurchandi	AVAILABLE
+109	Graph Theory	Narsingh Des	AVAILABLE
+110	Programming Languages	Ravi Sethi	AVAILABLE
+111	Programming Languages	Ravi Sethi	AVAILABLE
+112	Fundamentals of Computer Algorithms	Ellis Horowitz, Sartaj	AVAILABLE
+113	Computer Graphics C Version	Donald Heam, Pauline Baker	AVAILABLE
+114	Computer Graphics C Version	Donald Heam, Pauline Baker	AVAILABLE
+115	Advanced Programming in the UNIX environment	W Richard Stevens	AVAILABLE
+116	Advanced Programming in the UNIX environment	W Richard Stevens	AVAILABLE
+117	The design and analysis of computer algorithms	Aho, Hoperoft, Ullman	AVAILABLE
+118	Unix Concepts and Applications	Sumithaba Das	AVAILABLE
+119	Computer Networks	Andrew S Tannenbaum	AVAILABLE
+120	Computer Networks	Andrew S Tannenbaum	AVAILABLE
+121	Communication Networks	Alberto Leon Grocia	AVAILABLE
+122	Computer Organization	Carl Hamacher	AVAILABLE
+123	Object Oriented Systems Development	Ali Bahrami	AVAILABLE
+124	Object Oriented Analysis and Design	Grady Booch	AVAILABLE
+125	Introduction to Automata Theory, Languages and Computation	John E Hoperoft	AVAILABLE
+126	Programming Languages Design and Implementation	Terrence W Prott	AVAILABLE
+127	Programming Languages Design and Implementation	Terrence W Prott	AVAILABLE
+128	Let us C	Yashwant Kanetkar	AVAILABLE
+129	Let us C	Yashwant Kanetkar	AVAILABLE
+130	Computer Graphics	Foley, Van dam	AVAILABLE
+131	Computer Graphics	Foley, Van dam	AVAILABLE
+132	Java How to program	Deitel	AVAILABLE
+133	Visual Basic How to program	Deitel & Deitel, T R Nieto	AVAILABLE
+134	Design and Analysis of Algorithms	Anany Lewitin	AVAILABLE
+135	The Unified Modelling Language	Grody Booch, James Rumbaugh	AVAILABLE
+136	Mastering Visual Basic 6	Evangelos Petroutsos	AVAILABLE
+137	Mastering Visual Basic 6	Evangelos Petroutsos	AVAILABLE
+138	Mastering Visual Basic 6	Evangelos Petroutsos	AVAILABLE
+139	Mastering Visual Basic 6	Evangelos Petroutsos	AVAILABLE
+140	Graphics Under C	Yashwant Kanetkar	AVAILABLE
+141	Graphics Under C	Yashwant Kanetkar	AVAILABLE
+142	Graphics Under C	Yashwant Kanetkar	AVAILABLE
+143	Graphics Under C	Yashwant Kanetkar	AVAILABLE
+144	Standard C++	Paul Wang	AVAILABLE
+145	Computer Concepts and C programming	K Uday Kumar	AVAILABLE
+146	Computer Concepts and C programming	K Uday Kumar	AVAILABLE
+147	Computer Concepts and C programming	K Uday Kumar	AVAILABLE
+148	Fundamentals of Data Structures with C	S Nandagopalan	AVAILABLE
+149	Data Structures with C	A A Puntambekar	AVAILABLE
+150	Computer Organization	A P Godse, Dr D A Godse	AVAILABLE
+151	Introduction to Microprocessors	A P Godse, Dr D A Godse	AVAILABLE
+152	Computer Graphics	A P Godse	AVAILABLE
+153	Computer Networks	T G Basavaraju	AVAILABLE
+154	Computer Networks	V S Bagad & I A Dhotre	AVAILABLE
+155	Graph Theory and Combinatorics	Dr. D S C	AVAILABLE
+156	Computer Concepts and C programming	K Uday Kumar	AVAILABLE
+157	Computer Concepts and C programming	K Uday Kumar	AVAILABLE
+158	Computer Concepts and C programming	K Uday Kumar	AVAILABLE
+159	Programming in C and C++	S S Khandare	AVAILABLE
+160	Data Structures using C	Sunil B C	AVAILABLE
+161	Discrete Mathematical Structures	Dr. D S C	AVAILABLE
+162	Data Structures through C	G S Balnja	AVAILABLE
+163	Data Structures using C	Guruprasad	AVAILABLE
+164	Programming and Algorithmic Languages	nan	AVAILABLE
+165	Compiler Design	O G Kakde	AVAILABLE
+166	basics for MS DOS	Hari Venkateshwaran	AVAILABLE
+167	Computer Graphics	A P Godse	AVAILABLE
+168	Principles of data warehousing	Rajeev Parida	AVAILABLE
+169	Microprocessor and Interfacing	Keshav Murthy	AVAILABLE
+170	Introduction to Microprocessors	A P Godse & D A Godse	AVAILABLE
+171	Information Technology - Network and Internet	C T Bhunia	AVAILABLE
+172	Graph theory with Application	C Vasudev	AVAILABLE
+173	Software Engineering	K K Aggarwal	AVAILABLE
+175	Digital Principles and Design	Donald	AVAILABLE
+176	An Integrated Approach to Software Engineering	Pankaj Jalote	AVAILABLE
+177	Management Information Systems	C S V Murthy	AVAILABLE
+178	Object Oriented programming with C++	M P Bhave, Patekar	AVAILABLE
+179	Data Structures using C	Rajni Jindal	AVAILABLE
+180	Compiler(Constrction and Design)	Rajni Jindal	AVAILABLE
+181	Introduction to Constitution of India	Madhava nagpur	AVAILABLE
+182	Formal Languages and Automata Theory	Dr. B N Srinivasa Murthy	AVAILABLE
+183	An Integrated Approach to Software Engineering	Pankaj Jalote	AVAILABLE
+184	Advanced concepts in Operating Systems	Mukesh Singhal Niranjan	AVAILABLE
+186	Theory of Automata and Formal Languages	R B Patel Premnath	AVAILABLE
+187	Formal Languages and Automata Theory	Kumar and Kumar	AVAILABLE
+188	Advanced Computer Architecture	Rai Hwang	AVAILABLE
+189	Multimedia Computing	Ralf Nahrstatt	AVAILABLE
+190	Unix System programming using C++	Terrence Chan	AVAILABLE
+191	Cryptography and Network Security	William Stallings	AVAILABLE
+192	Unix Network Programming	Richard Stevens	AVAILABLE
+194	Information Security NITK Staff Develop program	Dr A Kanda, Dr. K Chandrashekar	AVAILABLE
+196	Digital Principles and Design	Givone	AVAILABLE
+197	Network Management	Mani Subramanyan	AVAILABLE
+198	Network Management	Mani Subramanyan	AVAILABLE
+199	Engineeering Management and Technology	Daniel Babert & Morse	AVAILABLE
+200	Engineeering Management and Technology	Daniel Babert & Morse	AVAILABLE
+201	Engineeering Management and Technology	Daniel Babert & Morse	AVAILABLE
+202	Formal Languages and Formal Languages	Padma reddy	AVAILABLE
+203	Distributed Operating Systems	Pradeep Sinha	AVAILABLE
+204	Cryptography and Security	William Stallings	AVAILABLE
+205	Introduction to Automata Theory	John E Hoperoft	AVAILABLE
+206	Object Oriented system development	Ali Bahrami	AVAILABLE
+207	Logic Design	A P Godse	AVAILABLE
+208	Computer Networks	Tanenbaum	nan
+211	Constitution Law and professional Ethics	raman and yagi	AVAILABLE
+212	Unix	Sumithaba Das	AVAILABLE
+213	Discrete Event Simulation	Jerry Banks	AVAILABLE
+215	Object Oriented programming with C++	balaguruswamy	AVAILABLE
+216	Computer Networks	Andrew Tannenbaum	AVAILABLE
+217	Discrete Event Simulation	Jerry Banks	AVAILABLE
+218	Introduction to Automata Theory and Languages	John E Hoperoft	AVAILABLE
+220	Object Oriented system development	Ali Bahrami	AVAILABLE
+221	Computer Organization	L Krishnanda	AVAILABLE
+223	Discrete Event Simulation	Jerry Banks	AVAILABLE
+224	Communication Networks	Widjaja	nan
+226	The Spirit of C	Cooper	AVAILABLE
+227	Constitution Law and professional Ethics	raman and yagi	AVAILABLE
+230	Computer Concepts and C programming	P B KOTUR	AVAILABLE
+232	System Software	M Joseph	AVAILABLE
+234	Computer Concepts and C programming	Padma Reddy	AVAILABLE
+235	Red Hat Enterprises Linux System	GLS	AVAILABLE
+236	Management Information Systems	A K Gupta	AVAILABLE
+237	Analysis and Design of Algorithms	A A Puntambekar	AVAILABLE
+238	Computer Organization	A P Godse	AVAILABLE
+239	Microprocessor	A P Godse	AVAILABLE
+240	data Structures, Algorithms and Applications in C++	Sartaj Sahani	AVAILABLE
+241	data Structures, Algorithms and Applications in C++	Sartaj Sahani	AVAILABLE
+242	Fundamentals of data structures in C	Horowitz, Sahni, Anderson	AVAILABLE
+243	Fundamentals of data structures in C ++	Horowitz, Sahni, Anderson	AVAILABLE
+244	Fundamentals of Computer Algorithms	Horowitz, Sahni, Anderson	AVAILABLE
+245	Computer Algorithms with C++	Horowitz, Sartaj, Rajashekeran	nan
+246	Graph Theory	Vasudev	AVAILABLE
+247	Design and Analysis of Algorithms	Nithin Upadhyay	nan
+248	Compiler Design	Gajendra Sharma	AVAILABLE
+249	Multimedia	Sujatha and Manoj pandey	AVAILABLE
+250	Software Testing	Rajiv Chopra	AVAILABLE
+251	Computer Networks	Sanjay Sharma	AVAILABLE
+252	Computer Networks	Sanjay Sharma	AVAILABLE
+256	Computer Networks	Sanjay Sharma	AVAILABLE
+257	Computer Networks	Sanjay Sharma	AVAILABLE
+258	Computer Graphics and Multimedia	Ehitiram raza Han, Huma Anwar	AVAILABLE
+259	Computer Concepts and C programming	Rajesh Hungal	AVAILABLE
+260	Operating Systems	Vijay Gupta	AVAILABLE
+261	Interactive Computer Graphics	Edward Angel	AVAILABLE
+262	Interactive Computer Graphics	Edward Angel	AVAILABLE
+263	Operating Systems	I A Dhotre	AVAILABLE
+264	management and Entrepreneurship	Naidu, Krishna Rao	AVAILABLE
+265	Compiler Design	Puntambekar	AVAILABLE
+266	management and Entrepreneurship	Srinivas	AVAILABLE
+267	Microprocessor lab manual	Krishna Mohan, Gayatri kamath	AVAILABLE
+268	Operating Systems	I A Dhotre	AVAILABLE
+269	Software Engineering	Agarwal, Yogeesh Singh	AVAILABLE
+270	Digital design and Computer Organization	Dr.Gill, Dixit	AVAILABLE
+271	Programming with C++	Juneja, Anitha Seth	AVAILABLE
+272	management and Entrepreneurship	veerabhadrappa	AVAILABLE
+273	Computer Networks	BharatBhushan Agarwal, Sunil Prakash	AVAILABLE
+274	data and computer communication	Rachana Sharma	AVAILABLE
+275	System Software	Smitha Ujwal	AVAILABLE
+276	Web Technology	Pankaj Sharma	AVAILABLE
+277	Multimedia	Sujata Pandey, Manoj Pandey	AVAILABLE
+278	Software Engineering	Bali- Bali	AVAILABLE
+279	Software Engineering	Bali- Bali	AVAILABLE
+280	Computer Networks	Sanjay Sharma	AVAILABLE
+281	Object Oriented System with Java	lalit Arora	AVAILABLE
+282	The design and analysis of alsorithms	Nithin Upadhyay	AVAILABLE
+283	Computer Networks - II	Bagad, Dhotre	nan
+284	Question bank in computer science	Nithin Upadhyay, Ramaswamy, Balaguruswamy	AVAILABLE
+285	parallel Computing	Bhujade	AVAILABLE
+286	An introduction to client server computing	Subash Chandra yadav	AVAILABLE
+287	Design and Implementation of Compiler	Ravindra Singh, Vivek Sharma	AVAILABLE
+288	Programming in C++	balaguruswamy	AVAILABLE
+289	Operating Systems	Dhamdhere	AVAILABLE
+290	Operating Systems	Archer Harris	AVAILABLE
+291	Data Communications and Networking	Forouzan	AVAILABLE
+292	Programming the web	Puntambekar	AVAILABLE
+293	Database management systems	Rajiv Chopra	AVAILABLE
+294	Advanced Computer Architecture	Rajiv Chopra	AVAILABLE
+295	Operating Systems	Rajiv Chopra	AVAILABLE
+296	The Art of Agile development	james shore, shane warden	AVAILABLE
+297	Service oriented architecture	Thomas Earl	AVAILABLE
+298	Data Communications and Networking	Forouzan	AVAILABLE
+299	The complete reference AJAX	Thomas Powel	AVAILABLE
+300	A structured programming approach using C	Forouzan, Richard Gilberg	AVAILABLE
+301	Electronic Principles	Albert Malvino, David Bates	AVAILABLE
+302	Programming the World Wide Web	Robert Sebastian	AVAILABLE
+303	Practises of Agile developer	Venkat Subramanyan, Andy Hunt	AVAILABLE
+304	The complete reference J2EE	Jim Keogh	AVAILABLE
+305	Amazon Mashups	Francis Shanahan	AVAILABLE
+306	Amazon Mashups	Francis Shanahan	AVAILABLE
+307	How to become a highly paid programmer	Paul Harkins	AVAILABLE
+308	Pattern Oriented Software Architecture	Buschmann, Meunier, Sommerland	nan
+309	Pro C# with .NET 3.0	Andrew Troleson	AVAILABLE
+310	Lex and Yacc	John Levine, Tony Mason, Doug Brown	AVAILABLE
+311	Operating Systems	Abraham Silberschatz, Peter galvin, Greg gagne	nan
+312	Automata theory, languages and computation	Hoperoft, Rajev Morwani, Jeffrey Ullman	AVAILABLE
+313	Software Architectures in Practise	Len Bass, Paul Clements, Rick Kazman	AVAILABLE
+314	Fundamentals of database systems	Elmasari, Shamkant and Navathe	AVAILABLE
+315	Embedded Systems Architecture, programming and design	Raj Kamal	AVAILABLE
+316	Microprocessors and Interfacing	Douglas V Hall	AVAILABLE
+317	Professional Ajax	Nicolas Jakas, Jeremy McPeak, Joe Fawcett	AVAILABLE
+318	Programming Flex2	Karoren, Joey Lott	AVAILABLE
+319	Digital Principles and Applications	Donald P Leach, Albert malvino, Gautam Saha	AVAILABLE
+320	Digital Principles and Applications	Donald P Leach, Albert malvino, Gautam Saha	AVAILABLE
+321	Computers and Communication Networks	Nader F Mir	AVAILABLE
+322	The Productive Programmer	Neal Ford	AVAILABLE
+323	Beautiful Code	Andy Aram and Greg Wilson	AVAILABLE
+324	Software Architectures	Mary Shaw, David garlan	AVAILABLE
+325	Object Oriented programming with C++	Saurav Sahay	AVAILABLE
+326	Programming in C#	balaguruswamy	AVAILABLE
+327	Computer Architecture	John Henesssey, David Patterson	nan
+328	Java, A Complete Reference	Herbert Schildt	nan
+329	Unix Concepts and Applications	Sumithaba Das	AVAILABLE
+330	Digital Image Processing	S Jayaraman, Esakkiranjan	AVAILABLE
+331	Pulse digital and switching waveforms	Jacob Millman	AVAILABLE
+332	Visual C++ Programming	Yashwant Kanetkar	AVAILABLE
+333	Operating Systems	Stuart Hadrick, John Donovan	AVAILABLE
+334	Visual C++ 5	Will Irain	AVAILABLE
+335	Visual C++ 6	Stevan Hotzner	AVAILABLE
+336	Introduction to Microprocessors	Aditya P Mathur	AVAILABLE
+337	Computer System Architecture	Morris Mano	AVAILABLE
+338	Develop an accounting packing using VB	Krishna and Bharathi	AVAILABLE
+339	Computer Networks	Andrew Tannenbaum	AVAILABLE
+340	C# A beginners guide	Herbert Schildt	AVAILABLE
+341	management of Systems	Sharma	AVAILABLE
+342	Elements of Electronics and Instrumentation	-	AVAILABLE
+343	Electronic Communication Systems	George Kennedy	AVAILABLE
+344	Integrated Electronics	Jacob Millman	AVAILABLE
+345	Information Storage and management	EMC	AVAILABLE
+346	data and computer communication	Rachana Sharma	AVAILABLE
+347	Computer Concepts and C programming	Rajiv Khanna	AVAILABLE
+348	Artificial Intelligence and Integrated Intelligent Information Systems	Xuan Zha	AVAILABLE
+349	Artificial Intelligence and Integrated Intelligent Information Systems	Xuan Zha	AVAILABLE
+350	Artificial Intelligence and Integrated Intelligent Information Systems	Xuan Zha	AVAILABLE
+351	Artificial Intelligence and Integrated Intelligent Information Systems	Xuan Zha	AVAILABLE
+352	The 8086 Primer	Stephen Morse	AVAILABLE
+353	Introductory to Probability and Statistical Applications	Meyer	AVAILABLE
+354	Microprocessor Architecture Programming and Applications	Goankar	AVAILABLE
+355	Microprocessors and Microcomputers	Ram	AVAILABLE
+356	Introduction to Wireless Telecommunications systems and networks	Millet	AVAILABLE
+357	Principles and Practices of Information security	Michael E Whitman, Herbert J Mattord	AVAILABLE
+358	Digital Systems Design Using VHDL	Charles H Roth	AVAILABLE
+359	Compilers  Principles, Techniques and Tools	Alfred V Aho, Ravi Sethi , Jeffery Ullman	AVAILABLE
+360	Linear Programming	G Hadley	AVAILABLE
+361	Fundamentals of data Structures	Ellis Horowitz, Sartaj Sahani	AVAILABLE
+362	Computer Graphics  A programming approach	Steven, Harrington	AVAILABLE
+363	Principles of Interactive Computer Graphics	William M Newwan, Robert F Spvoull	AVAILABLE
+364	Programming with Basic	Byrom S Gottfried	AVAILABLE
+365	Operating Systems Concepts	J Peterson, A Silberschatz	nan
+366	Computer Concepts and C programming	P B KOTUR	AVAILABLE
+367	Computer Organization	L Krishnanda	AVAILABLE
+368	Java Network Programming	Elliotte, Rusty, Harold	AVAILABLE
+369	Data Structures	Seymour Lipschutz	AVAILABLE
+370	Microprocessor and Interfacing	Douglas V Hall	AVAILABLE
+371	Advanced concepts in Operating Systems	Mukesh Singhal Niranjan	AVAILABLE
+372	Principles of Complier Designs	Alfred V Aho, Jeffery Ullman	AVAILABLE
+373	Microprocessor Architecture Programming and Applications	Goankar	AVAILABLE
+374	Digital Image Processing	Rafael C Gonzalez, Richard E Hoods	AVAILABLE
+375	Software Engineering	Pratap K J, Mohapatra	AVAILABLE
+376	Digital Systems	Ronald J Tocci	AVAILABLE
+377	Macromedia Flash 5	P Kerman	AVAILABLE
+378	A Text Book of Mathematics	Prof. B M Srinivasa Rao	AVAILABLE
+379	Basic Electronics	H S Nagaraj, K S Raghavendra Rao	AVAILABLE
+380	Principles of Database Systems	Jeffery D Ullman	AVAILABLE
+381	Compilers  Principles, Techniques and Tools	Alfred V Aho, Jeffery Ullman, Monica S Lam, Ravi Sethi	AVAILABLE
+382	Using Active Server Pages	Scot Johnson	AVAILABLE
+383	Introductory Methods of Numerical Analysis	S S Sastry	AVAILABLE
+384	Multimedia Fundamentals	Ralf Steinmetz, Klara Nahrstedt	AVAILABLE
+385	Computer System Architecture	V K Jain	AVAILABLE
+386	Problem Solving Using C	R Rajaram, P Chitra	AVAILABLE
+387	Programming in ANSI C 2nd edition	E Balagurusamy	AVAILABLE
+388	Programming Languages	Terrence W Pratt	AVAILABLE
+389	Computer Awareness	S Rai, R Ghosh	AVAILABLE
+390	Programming with Pascal	Byron S Gottfried	AVAILABLE
+391	Instrumentation Devices And Systems	C S Rangen, G R Sarma, V S V Mani	AVAILABLE
+392	System Programming Lab Manual	nan	AVAILABLE
+393	ICMLC 2010 - The Second International Conference On Machine Learning And Computing	nan	AVAILABLE
+394	Distributed Computing And Software Verfication Course Material	nan	AVAILABLE
+395	Operate Computers Yourself Flash 5	Dreamland Publications	AVAILABLE
+396	Front Page 2000	R S U Heathcote	AVAILABLE
+397	Introduction to Graph Theory	Douglas B West	AVAILABLE
+398	International Journal of Computer Applications in Engineering Technology And Science IJ-CA-ETS	Dr. G R Kulakarni, Dr. N N Jani	AVAILABLE
+399	Mastering Visual Basic 6	Evangelos Petroutsos	AVAILABLE
+400	Compiler Design	G Sudha Sadasivam	AVAILABLE
+401	ERL Technology Notes A Compendium of White Papers from E Commerce Research Labs	Infosys	AVAILABLE
+402	ERL Technology Notes (White Papers & Research Labs)	Infosys	AVAILABLE
+403	Data Management	Jayanthi Ranjan, Poonam Garg	AVAILABLE
+404	Computer Graphics Using OpenGL	F S Hill, JR. , Stephen M Kelley	AVAILABLE
+405	Programming in C++	M T Somashekara	AVAILABLE
+406	Object Oriented programming Using C++	N P Gopalan, B Sivaselvan, C Mala	AVAILABLE
+407	Information Processing	L M Patnaik, K R Venugopal	AVAILABLE
+408	International Journal of Computer Applications in Engineering Technology And Science IJ-CA-ETS	Dr G R Kulkarni, Dr N N Jani	AVAILABLE
+409	Proceedings of the International Symposium on Data, Information and Knowledge Spectrum	Amrita Vishwa Vidyapeetam	AVAILABLE
+410	Fifth International Conference on Industrial and Information Systems	NITK	AVAILABLE
+411	Advanced Computing and Communications	ADCOM 2008 Anna University	AVAILABLE
+412	Simulation Modelling and Analysis	Averill M Law	AVAILABLE
+413	ICTACT Jpurnal on Soft Computing	ICT Academy	AVAILABLE
+414	Visual C++ Projects	Yashvant Kanetkar	AVAILABLE
+415	Teach Yourself Visual C++ in 21 days	Davis Chapman	AVAILABLE
+416	The ABC 's of Intranets	Peter Dyson, Pat Coleman, Len Gilbert	AVAILABLE
+417	Visual C++ Programming	Yeshvant Kanetkar	AVAILABLE
+418	Programming in ANSI C 4th edition	F S Hill, JR. , Stephen M Kelley	AVAILABLE
+419	Programming with C++	A Chandra Babu, T Joshva Devadas	AVAILABLE
+420	The 8051 Microcontroller and Embedded systems	Mohammad Ali Mazidi, Janice Gillispie Mazidi	AVAILABLE
+421	Computer Concepts and C programming	Rajiv Khanna, M S Shashidhara	AVAILABLE
+422	Computer Concepts and C programming	E Balaguruswamy	AVAILABLE
+423	Computer Concepts and C programming	E Balaguruswamy	AVAILABLE
+424	Computer Concepts and C programming	E Balaguruswamy	AVAILABLE
+425	Computer Concepts and C programming	E Balaguruswamy	AVAILABLE
+426	Computer Concepts and C programming	E Balaguruswamy	nan
+427	Computer Concepts and C programming	E Balaguruswamy	AVAILABLE
+428	Computer Concepts and C programming	Rajiv Khanna, M S Shashidhara	AVAILABLE
+429	Data Structures using C & C++	Yedidyah , Langsam, Moshe J Augenstein	AVAILABLE
+430	Compilers	Alfred V Aho, Jeffrey D Ullman	nan
+431	Foundations of Software Testing	Aditya P Mathur	AVAILABLE
+432	Discrete Event System Simulation	Jerry Banks, John S Carsen II	AVAILABLE
+433	Advanced Programming in the UNIX environment	W Richard Stevens, Stephen A Rego	nan
+434	Enterpreneurship Development and Small Business Enterprises	Poornima M Charantimath	AVAILABLE
+435	Discrete and Combinatorial Mathematics	Ralph P Grimal	AVAILABLE
+436	Microsoft .NET XML Web Services	Adam Freeman , Allen Jones	AVAILABLE
+437	National Conference on Strategising Innovative Business Models	MBA Department	AVAILABLE
+438	Computer System Architecture	M Morris Mono	AVAILABLE
+439	An Introduction to Data Structure with Applications	Jean Paul Tremblay, Paul G Screnson	AVAILABLE
+440	Raising Enterprise Applications	Anubhav Pradhan, Nanjappa, Nallasamy, Esakimuthu	AVAILABLE
+441	Raising Enterprise Applications	Anubhav Pradhan, Nanjappa, Nallasamy, Esakimuthu	AVAILABLE
+442	Raising Enterprise Applications	Anubhav Pradhan, Nanjappa, Nallasamy, Esakimuthu	AVAILABLE
+443	Raising Enterprise Applications	Anubhav Pradhan, Nanjappa, Nallasamy, Esakimuthu	AVAILABLE
+444	Raising Enterprise Applications	Anubhav Pradhan, Nanjappa, Nallasamy, Esakimuthu	AVAILABLE
+445	Data Structure Using C	Aaron M.Tenenbaum, Yedidyah Langsam, Moshe J. Augenstein	AVAILABLE
+446	Computer Science - A Standard Programming Approach using C	Behrouz A Forouzan, Richard F Gilberg	AVAILABLE
+447	Raising Internet Applications	NITK Surathkal	AVAILABLE
+448	Software Engineering	Sajan Mathew	AVAILABLE
+449	The Complete PC Upgrade & Maintenance Guide	Mark Minasi	nan
+450	Computer & Concept	Mr. Potty	nan
+451	Computer & Concept	Mr. Potty	nan
+452	Computer & Concept	Mr. Potty	nan
+453	Computer & Concept	Mr. Potty	nan
+454	Object Oriented programming with C++	E. Balguruswamy	AVAILABLE
+455	Softskill Facilitate Manual	Campus Connect	AVAILABLE
+456	Softskill Facilitate Manual	Campus Connect	AVAILABLE
+457	Softskill Facilitate Manual	Campus Connect	AVAILABLE
+458	Softskill Facilitate Manual	Campus Connect	AVAILABLE
+459	Softskill Facilitate Manual	Campus Connect	AVAILABLE
+460	Softskill Facilitate Manual	Campus Connect	AVAILABLE
+461	Storage Technology Foundations Student guide (Volume 1)	EMC Education Science	AVAILABLE
+462	Storage Technology Foundations Student guide (Volume 1)	EMC Education Science	AVAILABLE
+463	Storage Technology Foundations Student guide (Volume 1)	EMC Education Science	AVAILABLE
+464	Storage Technology Foundations Student guide (Volume 1)	EMC Education Science	AVAILABLE
+465	Storage Technology Foundations Student guide (Volume 1)	EMC Education Science	AVAILABLE
+466	Storage Technology Foundations Student guide (Volume 2)	EMC Education Science	AVAILABLE
+467	Storage Technology Foundations Student guide (Volume 2)	EMC Education Science	AVAILABLE
+468	Storage Technology Foundations Student guide (Volume 2)	EMC Education Science	AVAILABLE
+469	Storage Technology Foundations Student guide (Volume 2)	EMC Education Science	AVAILABLE
+470	Object Oriented programming with C++ ( 5th Edition)	E. Balguruswamy	AVAILABLE
+471	Constitution of India & Proffesional Ethics	Mr. Rajaram	AVAILABLE
+472	Object Oriented programming with C++ ( 5th Edition)	E. Balguruswamy	AVAILABLE
+473	Introduction to Embedded Systems	Shibu K V	AVAILABLE
+474	Digital Principles and Applications	Donald P Leach, Albert, Goutham Saha	AVAILABLE
+475	System Programming 	D M Dhamdhere	AVAILABLE
+476	Descrete Mathematics & Its Applications	Kenneth H Rosen	AVAILABLE
+477	Formal Language & Automata Theory	K V N Smitha & N Kalyani	AVAILABLE
+478	Formal Language & Automata Theory	K V N Smitha & N Kalyani	AVAILABLE
+479	Digital Image Processing Using MATLAB	Rafael C Gonzalez, Richard E Woods, Stevan Eddins 	AVAILABLE
+480	Programming in C# A primer	E Balaguruswamy	AVAILABLE
+481	Data Communications and Networking (4th Edition)	Behrouz A Forouzan	AVAILABLE
+482	Microprocessors & Microcontrollers	Soumitra Kumar Mandal	AVAILABLE
+483	Computer Concepts and C programming	Rajiv Khanna, M S Shashidhara	AVAILABLE
+484	The Design & Analysis of Algorithm	Anany Levitin	AVAILABLE
+485	Discrete & Combinational Mathematics	Ralph P Grimal	AVAILABLE
+486	Object Oriented Programming using C++	G K  Baluja & G S Baluja	AVAILABLE
+487	Introduction to Database Management System	Satinder Bal Gupta & Aditya Mittal	AVAILABLE
+488	Data Structure through C	G S Baluja	AVAILABLE
+489	Internet & Java Programming	Udit Agarwal	AVAILABLE
+490	Software`Engineering	Manish Kumar Jha	AVAILABLE
+491	Algorithms Design & Analysis	Udit Agarwal	AVAILABLE
+492	Data Structure through C	G S Baluja	AVAILABLE
+493	Compiler Construction	Manish Kumar Jha	AVAILABLE
+494	Design & Analysis of Algorithm	A A Putambekar	AVAILABLE
+495	Computer Organization	A P Godse, D A Godse	AVAILABLE
+496	Microprocessors	A P Godse, D A Godse	AVAILABLE
+497	Fundamentals of data Structures in C (2nd Edition)	 Horowitzs, Sahni, Anderson, Freed	AVAILABLE
+498	Automata theory, languages and computation	Jhon E Hopcroft, Rajeev Motwani, Jeffrey D Ullman	AVAILABLE
+499	Computer Organization (5th Edition)	Carl Hamacher , Safwat Zaky, Zvonko Vranesic	AVAILABLE
+500	Communication Networks - Fundamental Concepts & Key Architecture	Alberto Leon Garcia, Indra Widjaja 	AVAILABLE
+501	Software Architecture in Practice (2nd Edition)	Len Bass, Paul Clements, Ricks Kazman	AVAILABLE
+502	Object Oriented Systems Development	Ali Bahrami	nan
+503	An Introduction to Data Base Systems	Bipin C Desai	nan
+504	Programming with C	Byron C Gottfried	nan
+505	Digital Principles and Applications ( 4th Edition)	Alber Paul Malvino, Donal P Leach	nan
+506	Computer System Architecture (3rd Edition)	M. Morris Mano	nan
+507	Artificial Intelligence and Expert Systems	Dan W Petterson	nan
+508	Operating Systems - Concepts and Design	Milan Milenkovic	nan
+509	The C Programming Language (2nd Edition)	Brain W Kernighan, Dennis M Ritchie	nan
+510	The C Anwer Book	Clovis L Tondo, Scott E Gimpel	nan
+511	Management Information Systems (Managing the Digital firms)	Kenneth  C Laudon, Jane P Laudon	nan
+512	The Complete Reffrence C++ , 8th edition	Herbert Schildt	nan
+513	Software Engineering (8th Edition)	Ian Sommerville	nan
+514	Fundamentals of Digital Image Processing	Anil K Jain	nan
+515	Digital Image Processing - Using MAT Lab	Rafael C Gonzalez, Richard E Woods, Stevan Eddins 	nan
+516	The Intel Microprocessors, Architecture, Programming & Interfacing	Barry B Brey	nan
+517	Discrete & Combinational Mathematics	Ralph P Grimaldi, B V Ramana	nan
+518	Digital Principles & Applications ( 7th Edition)	Donald P Leach, Albert, Goutham Saha	nan
+519	Digital Image Processing (3rd Edition)	Rafael C Gonzalez, Richard E Woods	nan
+520	Database Management Systems (3rd Edition)	Ramakrishnan, Gehrke	nan
+521	Fundamentals of Computer Algorithms (2nd Edition)	Ellis Horowitz, Sartaz Sahani, Sangutevar Rajasekaran	nan
+522	Electronic Devices & Circuits	Anil K Maini, Varsha Agarwal	nan
+523	Computer Organization & Design The Harware | Software Interface	David A Petterson, John L Hennessy	nan
+524	Unix Concepts and Applications ( 4th Edition)	Sumitabha Das	nan
+525	Operating Systems Concepts 8th edition	Abraham Silberschatz Peter, B.Galvin Greg Gagine	nan
+526	System Software An Introduction to Systems Programming (3rd Edition)	Leland L Beck, D Manjula	nan
+527	Introduction to the Design & Analysys of Algorithms	Anany Levitin	nan
+528	Fundamentals Of Database Systems (5th Edition)	Ramez Elmasri, Shamkant B Navathe	nan
+529	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+530	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+531	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+532	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+533	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+534	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+535	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+536	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+537	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+538	Fundamentals Of Buisiness Analysis 	R N Prasad , Seema Acharya	nan
+539	ERL Technology Notes (White Papers & Research Labs)	Infosys Technology Limitted)	nan
+540	Computer Organization 	L Krishnanada	nan
+541	National Conference on Computing 	Kumaraguru Collge of Technology , Koimbator	nan
+542	System Software	A A Putambekar, I A Dhotre	nan
+543	Software Engineering	A A Putambekar	nan
+544	Software Project Management	Manish Kumar Jha	nan
+545	Computer Networks	Udit Agarwal	nan
+546	Cryptography Network Security	Sumita  Tyagi, Ramveer Singh Yadav	nan
+547	Mobile Computing	s. Nithyanadam, M Ambika, K S Gayathri	nan
+548	Computer Organization (5th Edition)	Carl Hamacher , Safwat Zaky, Zvonko Vranesic	nan
+549	Object Oriented Modelling & Design with UML	Michael R Blaha, James Rumbaugh	nan
+550	Programming in C ( 2nd Edition)	Pradip Dey, Manas Ghosh	nan
+551	Fundamentals of Microprocessor & its Applications	Anokh Singh, Er. A K Chhabra	nan
+552	Rich Internet Applications with Adobe flex (MASHUP/AJAX/WEB 2.0)	Chafic Kazaun, Joey Lott	nan
+553	Basic Electronics	A P Godse, U A Bakshi	nan
+554	Computer Graphics Multimedia & Animation	Malay K Pakhira	nan
+555	Electronic Circuits	A P Godse, U A Bakshi	nan
+556	Introduction to Computers & Basic Programming ( 3rd Edition)	C Xavier	nan
+557	Red Hat Enterprise Linux Essentials	nan	nan
+558	Logic Design	Adicherla Mallesh, K Shiva Kumar	nan
+559	Computer Concepts and C programming	E Balaguruswamy	nan
+560	Computer Concepts and C programming	P B Kotur	nan
+561	Programming in C	Dr. S S Khandare	nan
+562	Design & Implementation of Operating System	Vivek Sharma, Manish Varshaney, Shantanu Sharma	nan
+563	Data Structure Using C & C++	Yedidyah Langsam, Moshe J Augenstein, Aaron M Tenenbaum	nan
+564	International Confference on Emerging Trends in Engineering	Dr. Niranjan N Chiplunkar, Prof. Vinay S	nan
+565	Short term Course on Hardware & Networking	Conducted by Dept of CSE , SJEC, Vamanjoor	nan
+566	Web Designing couse on VB Script & ASP	Conducted by Dept of CSE , SJEC, Vamanjoor	nan
+567	Web Designing couse on VB Script & ASP	Conducted by Dept of CSE , SJEC, Vamanjoor	nan
+568	Web Designing couse on VB Script & ASP	Conducted by Dept of CSE , SJEC, Vamanjoor	nan
+569	Discrete Event System Simulation	Jerry Banks, John S Carson II, Barry L Nelson, Devid M Nicol	nan
+570	Computer Networks	nan	nan
+571	Data Base Management System	Ramkrishnan, Gehrke	nan
+572	Data Base Management System	Ramkrishnan, Gehrke	nan
+573	Software Engineering	A A Putambekar	nan
+574	Advanced Computer Architecture	Er. Rajiv Chopra	nan
+575	Programming in C & Data Structure	Rajesh Hongal	nan
+576	Real Time System	Shadab Jefan	nan
+577	Computer Organization & Architecture	Dr. Lalit K Arora, Anjali Arora	nan
+578	A Course in Computer Networks	Dr. Sanjay Sharma	nan
+579	Constitutional Law Proffesional Ethics	B S Raman / Yaji	nan
+580	Essentials of IBM Rational Software Architecture V7.0	IBM Rational University	nan
+581	Essentials of IBM Rational Software Architecture V7.1	IBM Rational University	nan
+582	The C Programming Language 	Brian W Kernighan, Dennis M Ritchie	nan
+583	Problem Solving with C	Jacqueline A Jones, Kieth Harrow	nan
+584	Artificial Intelligence A modern Approach	Stuart Russel, Peter Norving	nan
+585	Computer Fundamentals & Programming in C	Reema Thareja	nan
+586	Software Architecture 	Priti Mishra	nan
+587	System Modeling and Simulation	Rashmi Amardeep	nan
+588	Unix System Programming using C/C++	Yogish H K	nan
+589	Computer Organization	L Krishnanada	nan
+590	An Introduction to Computer Design	Udit Agarwal	nan
+591	Advanced Computer Architecture	Kai Hwang	nan
+592	Software Quality, Assurance, Testing & Metrices	Anirban Basu	nan
+593	Programming in C and Data Stuctures	Nanjesh Bennur, Dr. E K Subbaraya	nan
+594	Programming in C and Data Stuctures	S Deepak Raju	nan
+595	Programming in C & Introduction to Data Structure	Dr. Thyagaraju G S 	nan
+596	Composing Mobile Apps	Anubhav Pradhan	nan
+597	Electronic Principles	Albert Malvino, David J Bats	nan
+598	Electronic Principles	Albert Malvino, David J Bats	nan
+599	Digital Principles & Applications 	Donald P Leach, Albert Paul Malvino, Gautham Saha 	nan
+600	Digital Principles & Applications 	Donald P Leach, Albert Paul Malvino, Gautham Saha 	nan
+601	Discrete & Combinational Mathematics	B V Raman, Ralph P Grimaldi	nan
+602	Discrete & Combinational Mathematics	B V Raman, Ralph P Grimaldi	nan
+603	Computer Science - A Standard Programming Approach using C	Behrouz A Forouzan, Richard F Gilberg	nan
+604	Computer Science - A Standard Programming Approach using C	Behrouz A Forouzan, Richard F Gilberg	nan
+605	Unix Concepts and Applications 	Sumitabha Das	nan
+606	Unix Concepts and Applications 	Sumitabha Das	nan
+607	Data Structures using C & C++	Yedidyah Langsam, Moshe J Augenstein, Aaron M Tenenbaum	nan
+608	Data Structures using C & C++	Yedidyah Langsam, Moshe J Augenstein, Aaron M Tenenbaum	nan
+609	Introduction to the Design & Analysys of Algorithms	Anany Levitin	nan
+610	Introduction to the Design & Analysys of Algorithms	Anany Levitin	nan
+611	Object Oriented Programming with C++	Sourav Sahay	nan
+612	Object Oriented Programming with C++	Sourav Sahay	nan
+613	Microprocessors & Interfacing	Donglas V Hall	nan
+614	Microprocessors & Interfacing	Donglas V Hall	nan
+615	Computer Organization	Carl Hamacher, Zvonko Vranesic, Safwat Zaky	nan
+616	Computer Organization	Carl Hamacher, Zvonko Vranesic, Safwat Zaky	nan
+617	Software Engineering 	Sommerville	nan
+618	Software Engineering 	Sommerville	nan
+619	System Software	Leland L Beck, D.Manjula	nan
+620	System Software	Leland L Beck, D.Manjula	nan
+621	Lex & Yacc	John R Levine, Tony Mason Doug Brown	nan
+622	Lex & Yacc	John R Levine, Tony Mason Doug Brown	nan
+623	Enterpreneurship Development and Small Business Enterprises	Poornima M Chirantrinath	nan
+624	Enterpreneurship Development and Small Business Enterprises	Poornima M Chirantrinath	nan
+625	Unix System Programming Using C++	Terrence Chan	nan
+626	Unix System Programming Using C++	Terrence Chan	nan
+627	Dynamics of Enterpreneurial Development & Management	Vasant Desai	nan
+628	Dynamics of Enterpreneurial Development & Management	Vasant Desai	nan
+629	Management Information Systems 	James A O Brien, George, M Marakas	nan
+630	Management Information Systems 	James A O Brien, George, M Marakas	nan
+631	Advanced Programming in the UNIX environment	W Richard Stevens, Stephen A Rago	nan
+632	Advanced Programming in the UNIX environment	W Richard Stevens, Stephen A Rago	nan
+633	Communication Networks 	Albert Leon Garaa, Indra Widjaja	nan
+634	Communication Networks 	Albert Leon Garaa, Indra Widjaja	nan
+635	Principles of Management	P C Tripathi, P N Reddy	nan
+636	Principles of Management	P C Tripathi, P N Reddy	AVAILABLE
+637	Interactive Computer Graphics	Edward Angel	nan
+638	Interactive Computer Graphics	Edward Angel	nan
+639	Compilers	Alfred V Aho, Manica S Lam, Ravi Sethi, Jeffrey D Ulman	nan
+640	Compilers	Alfred V Aho, Manica S Lam, Ravi Sethi, Jeffrey D Ulman	nan
+641	Computer & Communication Networks	Nader F Mir	nan
+642	Computer & Communication Networks	Nader F Mir	nan
+643	File Structures an Object Oriented approach with C++	Michael J Folk, Bill Zoelhick, Grey Riccardi	nan
+644	File Structures an Object Oriented approach with C++	Michael J Folk, Bill Zoelhick, Grey Riccardi	nan
+645	Data Communications and Networking 	Behrouz A Forouzan	nan
+646	Data Communications and Networking 	Behrouz A Forouzan	nan
+647	Fandamentals of Database Systems	Ramez Elmasri, Shamkanth B Navathe	nan
+648	Fandamentals of Database Systems	Ramez Elmasri, Shamkanth B Navathe	nan
+649	Database Management Systems 	Ramakrishnan, Gehrke	nan
+650	Database Management Systems 	Ramakrishnan, Gehrke	AVAILABLE
+651	Introduction to Automata Theory Languages & Computation	John E Hopcraft, Rajeev Matwani, Jeffrey D Ullman	nan
+652	Introduction to Automata Theory Languages & Computation	John E Hopcraft, Rajeev Matwani, Jeffrey D Ullman	nan
+653	Operating Systems Principles	Abraham Gilberrchatz, Peter Baer Galvin, Greg Gragne	nan
+654	Operating Systems Principles	Abraham Gilberrchatz, Peter Baer Galvin, Greg Gragne	nan
+666	Software Testing and Analysis	Mauro Pezze, Michal young	nan
+667	Foundations of Software Testing	Aditya P Mathur	nan
+668	Pro C# with .NET 3.0	Andrew Troleson	AVAILABLE
+669	Data Mining Concepts and Techniques	Jiawei Han, Micheline Kamber	AVAILABLE
+670	Introduction to data mining	Pang-Ning Tan, Michael Steinbach, Vipin Kumar	nan
+671	Programming the world wide web	Robert W Sebesta	AVAILABLE
+672	Programming with C#, A Primer	E Balaguruswamy	AVAILABLE
+673	Service Oriented Architecture	Thomas Erl	AVAILABLE
+674	J2EE, The Complete reference	Jim Keogh	AVAILABLE
+675	Java 7th Ed	Herbert Schildt	nan
+676	Jigar's Solved papers - Logic Design	nan	AVAILABLE
+677	Storage Networks	Robert Spalding	AVAILABLE
+678	Discrete Event System Simulation	Jerry banks, John S Carsontt, Barry L Nelson, David M Nicol, P Shahiudeen	AVAILABLE
+679	Programming Flex	O'Reilly	AVAILABLE
+680	Data Mining methods	Rajan Chattamvelli	AVAILABLE
+681	Programming with C++	A Chandra Babu, T Joshua Devdas	AVAILABLE
+682	Foundations of semantic Web	Rajendra Akerkar	AVAILABLE
+683	File Structures using C++	K R Venugopal, K G Shrinivas, P M Krishnaraj	AVAILABLE
+684	Architecture, Programming and Applications of Advanced Microprocessors	Amar K Ganguly	AVAILABLE
+685	System Simulation	D S Hira	AVAILABLE
+686	Management Information Systems	James A O'Brian , George M Marakas	AVAILABLE
+687	Software Engineering	Sommerville	AVAILABLE
+688	Fundamentals of Data Structures in C	Horowitz, Sahani, Anderson	AVAILABLE
+689	Digital Principles and Applications	Donald P Leach, Albert Paul Malvino, Gautam Saha	AVAILABLE
+690	Discrete mathematics and its applications with combinatorics and graph theory	Kenneth H Rosen, Kamala Krithivasan	AVAILABLE
+691	Compilers - Principles, Techniques and tools	Alfred V Aho, Monica S lam, Ravi Sethi, Jeffrey D Ullman	AVAILABLE
+692	Object Oriented programming with C++	E Balaguruswamy	AVAILABLE
+693	Programming in C - A practical Approach	Ajay Mittal	AVAILABLE
+694	The Intel Microprocessors - 8th ed	Barry B Brey	AVAILABLE
+695	File Structures - An object oriented approach with C++, 3rd ed	Michael J Folk, Bill Zollick, Greg Riccardi	AVAILABLE
+696	Operating Systems	Sibsarkar Haldar, Alex A aravind	nan
+697	Compiler Design	G Venkateshwariah, N Krishna Rao	AVAILABLE
+698	Computer Networks II	N Malathi, Raghuram, N Nanda Kishore	AVAILABLE
+699	Programming in C#. A primer	E. Balaguruswamy	AVAILABLE
+700	An introduction to Computer Networks	S A M Rizvi, V K Sharman	AVAILABLE
+701	Making Embedded SYstem	O'Reilly	AVAILABLE
+702	Fundamentals of Data Structures in C	Horowitz, Sahani, Anderson	AVAILABLE
+703	Computer Organization	L. Krishnananda	AVAILABLE
+704	Introduction to graph theory	Garry chartrand, Ping Zhang	AVAILABLE
+705	Java Fundamentals	Herbert Schildt, Dale Skrien	nan
+706	Data Mining Methods	Rajan Chattamvelli	AVAILABLE
+707	Data Mining Algorithms	rajan Chattamvelli	AVAILABLE
+708	File structures - An object oriented approach with C++, 3rd ed	Michael J Folk, Bill Zollick, Greg Riccardi	AVAILABLE
+709	Fundamentals of Compiler Design	Adesh K Pandey	AVAILABLE
+710	Computer Networks II	nan	AVAILABLE
+711	Digital Principles and Applications	P Leach	AVAILABLE
+712	Digital Principles and Applications	P Leach	AVAILABLE
+713	Unix and Shell Programming	I A Dhotre	nan
+714	Analog and Digital Electronics	A P Godse, U A Bakshi	AVAILABLE
+715	Computer Organization	A P Godse, Dr D A Godse	AVAILABLE
+716	Data Structures and Applications	A A Puntambekar	AVAILABLE
+717	Internet of Things -A Bands on Approach	Arshdeep Bahga & Vijay Madisitti	AVAILABLE
+718	Internet of Things with Python	Gaston C Hillar	AVAILABLE
+719	Internet of Things	Donald Norris	nan
+720	Building the Internet of things with IPV6 and MIPV6 The evolving world of M2M communications	Daniel Minoli	AVAILABLE
+721	Programming the World Wide Web	Robert W Sebesta	AVAILABLE
+722	ARM System Developers Guide	Andrew N sloss, Dominic Symes, Chris wright	nan
+723	The X86 Pc : Assembly Language ,Design & Interfacing (5th ED)	Mohammad Ali Mazidi, Janice Mazidi,Danny Causey	nan
+724	Microprocessors & Microcontrollers (VTU - CBCS Scheme 2015)	A.P Godse , Dr. D A Godse	nan
+725	Software Engineering (VTU- CBCS Scheme 2015)	A A Puntambekar	nan
+726	Design & Analysis of Algorithems(VTU- CBCS Scheme 2015)	A A Puntambekar	nan
+727	Obeject Oriented Concepts -Java (VTU- CBCS Scheme 2015)	A A Puntambekar	nan
+728	Design & Analysis of Algorithems Laboratory Manual	K Santhi sree	AVAILABLE
+729	Internet of Things	Michael Miller	AVAILABLE
+730	Internet of Things -A Hands on Approach	Arshdeep Bahga ,Vijay Madisitti	AVAILABLE
+731	Internet of Things -A Hands on Approach	Arshdeep Bahga ,Vijay Madisitti	nan
+732	Machine Learning	Tom M Mitchell	AVAILABLE
+733	Machine Learning	Tom M Mitchell	AVAILABLE
+734	Mobile and Wireless Design Essentials	Martyn Mallick	AVAILABLE
+735	Mobile and Wireless Design Essentials	Martyn Mallick	AVAILABLE
+736	Building Internet of Things with IPV4 & MIPV6	Daniel Minoli	AVAILABLE
+737	Building Internet of Things with IPV4 & MIPV7	Daniel Minoli	AVAILABLE
+738	Designing Connected Products -IOS	Claire Rowland, Elizabeth Goodman, Martin Charlier ,Ann Light & Alfred Lui	AVAILABLE
+739	Raspberry Pi Cookbook	Simon Monk	AVAILABLE
+740	Introduction to Computer Science Using Python	Charles Dierbach	AVAILABLE
+741	Mobile Computing Technology, Application And Service Creation 2nd & 3rd	Dr. Asoke Talukder,Hasan Abmed,Roopa R Yayagal	nan
+742	Mobile Computing Technology, Application And Service Creation 2nd & 3rd	Dr. Asoke Talukder,Hasan Abmed,Roopa R Yayagal	AVAILABLE
+743	Data Communication and Networking 5th Edition	Forouzan	AVAILABLE
+744	Data Communication and Networking 5th Edition	Forouzan	AVAILABLE
+745	Software Enginnering ,9th Eddition	Lan Sommerville	nan
+746	Software Enginnering ,9th Eddition	Lan Sommerville	nan
+747	The X86 Pc Assembly Language Design & Interfacing 5th Eddtion	Muhammad Ali Mazidi, Janice Mazidi, Danny Causey	AVAILABLE
+748	The X86 Pc Assembly Language Design & Interfacing 5th Eddtion	Muhammad Ali Mazidi, Janice Mazidi, Danny Causey	nan
+749	Computer Algorithms/C++ 2nd Edition	Ellis Horowitz, Sartaj Sahni, Sanguthevar Rajasekaran	AVAILABLE
+750	Data communication - VTU CBCS 2015	V. S. Bagad I. A. Dhotre	AVAILABLE
+751	Microprocessors and Microcontrollers	Prof S.Keshav Murthy	AVAILABLE
+752	Introduction to Operations Research 9th Edition	Frederick K. Hiller, Gerald J. Lieberman,Bodhibrata Nag & Preetam Basu	nan
+753	Introduction to Operations Research 9th Edition	Frederick K. Hiller, Gerald J. Lieberman,Bodhibrata Nag & Preetam Basu	nan
+754	Aurdino Projects for Engineers	Neerparaj Rai	AVAILABLE
+755	Internet of Things with Python	Gaston C. Hillar	nan
+756	ARM System Developers Guide	Andrew Sloss , Dominic Symes,Chris Wright	AVAILABLE
+757	Internet of Things - Do it yourself at Home Projects for Arduino ,Raspberry Pi and Beaglebone Black	Donald Norris	nan
+758	Distributed Computing	Sunitha Mahajan,Seema Shah	AVAILABLE
+759	Object Oriented Programming with C++ (Second Edition)	Sourav Sahay	AVAILABLE
+760	Object Oriented Programming with C++ (Second Edition)	Sourav Sahay	AVAILABLE
+761	Object Oriented Programming with C++ (Second Edition)	Sourav Sahay	AVAILABLE
+762	Object Oriented Programming with C++ (Second Edition)	Sourav Sahay	AVAILABLE
+763	Object Oriented Programming with C++ (Second Edition)	Sourav Sahay	AVAILABLE
+764	Programming M.C - Second Edition	Remma Thareja	AVAILABLE
+765	Mobile Computing - Second Edition	Raj Kamal	AVAILABLE
+766	Database Systems - Sixth Edition	Ramez Elmasri, Shamakant B, Navathe	AVAILABLE
+767	Automata , Computability And Complexity - Theory of Applications - First Eddition	Elaine A Rich	AVAILABLE
+768	Campus Connect -Foundation Program ICS, OS,P&T 3rd Edition,Volume 1	Infosys, Campus connect Foundation Program Team	AVAILABLE
+769	Foundation Program-DAA,SE,IWT,CSC	Infosys, Campus connect Foundation Program Team	AVAILABLE
+770	Foundation Program- RDBMS,OOP	Infosys, Campus connect Foundation Program Team	AVAILABLE
+859	C Programming for Problem Solving	Dr. Guruprasad Nagraj	AVAILABLE
+771	Object Oriented Analysis & Design with the Unified Process	Satzinger, Jackson, Burd	AVAILABLE
+772	Advanced Java Programming [PaperBack 2015]	Uttam Roy	AVAILABLE
+773	CSI Communications- August 2017	CSI	AVAILABLE
+774	Mastering Cloud Computing [PaperBack 2017]	Rajkumar Buyya, Christian Vecchiola, S.Thamarai Selvi	AVAILABLE
+775	Embedded Systems	I A Dhotre	AVAILABLE
+776	Automata Theory and Computability	A.A Puntambekar	AVAILABLE
+777	MBA Education and careers -August 2017	Timelt Education	AVAILABLE
+778	Microsoft Vishal C# Step By Step	nan	AVAILABLE
+779	Computer Networking -A Topdown Approach- 6th Editiion	James F Kurose ,Keith W Ross	AVAILABLE
+780	Management and Entrepreneurship	Ravikumar R ,Suresh H	AVAILABLE
+781	Management and Entrepreneurship	Ravikumar R ,Suresh H	AVAILABLE
+782	Database Management System	Seema Kedar	AVAILABLE
+783	Computer Networks	I. A Dhotre, V. S Bagad	AVAILABLE
+784	Cloud Computing -Implementation,Management and Security	John W Rittinghouse , Janes F Ransome	AVAILABLE
+785	Cloud Computing - Principles and Paradigms	Rajkumar Buyya, James Broberg Andrzij Goscinski	AVAILABLE
+786	SOA Using Java Web Services	Mark D. Hansen	AVAILABLE
+787	Service Oriented Computing -Semantics, Processes , Agents	Muninder P singh , Michael N Huhns	AVAILABLE
+788	Home Hacking Projects for Geeks	Tony Northrup , Eric Faulkner	AVAILABLE
+789	Multi - Core Programming	Shameem Akhter and Jason Roberts	nan
+790	Internetworking with TCP/IP - Priciples, Protocols & Architecture	Douglas E Comer	AVAILABLE
+791	Computer Networks- A System Approach	Larry L Peterson & Bruce S Davie	AVAILABLE
+792	UNIX Network Programming -Volume 1	W Richard Stevens	AVAILABLE
+793	Network Security and Cryptography	Bernard Menezes	AVAILABLE
+794	Python -For Everybody	Charles Severance	AVAILABLE
+795	Think Python	Allen B Downey	nan
+796	Handbook of Computer Science and IT	G.K Publications	AVAILABLE
+797	Operting Systems	I.A Dhotre	nan
+798	Cryptography and Networking Security and Cyber Law	I.A Dhotre, V.S Bagad	nan
+799	System Software and Compiler Design	A.A Puntambekar, I.A Dhotre	AVAILABLE
+800	Data Structures	Seymour Lipschutz	AVAILABLE
+801	Advanced Computer Architecture - Parallelism, Scalability , Programmability	Kai Hwang	nan
+802	Advanced Computer Architecture	Kai Hwang	AVAILABLE
+803	Automata Computability and Complexity	Elaine A Rich	AVAILABLE
+804	Complete Reference Java	Herbert Schildt	nan
+805	Computer Graphics with OpenGL	Donald Hearn	nan
+806	Computer Graphics with OpenGL	Donald Hearn	nan
+807	Computer Networking -A Topdown Approach	James F Kurose	AVAILABLE
+808	Cryptography and Networking Security and Cyber Law	Bernard Menezes	nan
+809	Data Communications and Networking -5th Eddition	Behrouz A Forouzan	AVAILABLE
+810	Fundamentals of Web Development	Randy Connolly	AVAILABLE
+811	Fundamentals of Web Development	Randy Connolly	nan
+812	Introduction to Data Mining	Pang Ning Tan	AVAILABLE
+813	Object Oriented Analysis & Design with the Unified Approach	John W Satzinger	AVAILABLE
+814	Operations Research	Prem Kumar Gupta	nan
+815	Electronic Devices & Circuits	Anil K Maini , Varsha Agarwal	AVAILABLE
+816	Discrete Mathamatical Structures	Dr. K S.C	AVAILABLE
+817	Programming for Problem Solving	Dr. Yogish H.K	nan
+818	Programming for Problem Solving	Dr. Yogish H.K	nan
+819	Programming for Problem Solving	Dr. Yogish H.K	nan
+820	Programming for Problem Solving	Dr. Yogish H.K	AVAILABLE
+821	Discrete Mathamatical Structures	Dr. D.S.C	AVAILABLE
+822	Engineering Mathematics - III	Dr. K.S.C	AVAILABLE
+823	Microprocessors	A.P Godse	AVAILABLE
+824	Logic Designs	A.P Godse	AVAILABLE
+825	Beginners Guide	nan	AVAILABLE
+826	JAVA	nan	AVAILABLE
+827	J2EE	nan	AVAILABLE
+828	Planning for secuirty	nan	AVAILABLE
+829	Embedded Systems	nan	AVAILABLE
+830	Unix System Programming	nan	AVAILABLE
+831	Learning to get a JOB	nan	AVAILABLE
+832	Learning to get a JOB	nan	AVAILABLE
+833	Advanced Computer Architecture	Kai Hawng	AVAILABLE
+834	Advanced Computer Architecture	Kai Hawng	AVAILABLE
+835	Programming in ANSI C 7th Edition	E Balagurusamy	nan
+836	Computer Fundamentals & C Programming	Sumitabha Das	AVAILABLE
+837	Microsoft Vishal C# Step By Step	John Sharp	AVAILABLE
+838	Microsoft Vishal C# Step By Step	John Sharp	AVAILABLE
+839	Discrete Mathamatical Structures	Dr.D.S.C	AVAILABLE
+840	Discrete Mathamatical Structures	Dr.D.S.C	AVAILABLE
+841	The Complete Refernce : J2EE	Jim Keogh	AVAILABLE
+842	The Complete Refernce : J2EE	Jim Keogh	AVAILABLE
+843	Machine Learning	Tom M Mitchel	AVAILABLE
+844	Machine Learning	Tom M Mitchel	AVAILABLE
+845	Automata, Computability and Complexity	Elaine Rich	AVAILABLE
+846	Natural Language Processing & Text Mining	Anne Kao	AVAILABLE
+847	Fundamentals of Web Development	Randy Connolly	AVAILABLE
+848	Web Technology & Its Applications	A.A Puntambekar	nan
+849	Cloud Computing & Its Applications	Dr. A.B Nimbalkar	AVAILABLE
+850	Unix System Programming	I A Dhotre	AVAILABLE
+851	C Programming for Problem Solving	Nanjesh Bennur	AVAILABLE
+852	C Programming for Problem Solving	Nanjesh Bennur	nan
+853	C Programming for Problem Solving	Nanjesh Bennur	nan
+854	C Programming for Problem Solving	Nanjesh Bennur	AVAILABLE
+855	C Programming for Problem Solving	Nanjesh Bennur	nan
+856	Machine Learning	I A Dhotre	AVAILABLE
+857	Advanced Computer Architecture	I A Dhotre	AVAILABLE
+858	Information & Network Security	V.S Bagad	AVAILABLE
+860	C Programming for Problem Solving	Dr. Guruprasad Nagraj	AVAILABLE
+861	C Programming for Problem Solving	Dr. Guruprasad Nagraj	AVAILABLE
+862	C Programming for Problem Solving	Dr. Guruprasad Nagraj	AVAILABLE
+863	C Programming for Problem Solving	Nanjesh Bennur	AVAILABLE
+864	IEEE Power & Energy Magazine	IEEE	AVAILABLE
+865	CSI Communications Issue No 1	(April 2018) CSI	AVAILABLE
+866	CSI Communications Issue Feb 2018	CSI	AVAILABLE
+867	CSI Communications Issue March 2018	CSI	AVAILABLE
+868	CSI Communications Issue May 2018	CSI	AVAILABLE
+869	CSI Communications Issue June 2018	CSI	AVAILABLE
+870	CSI Communications Issue July 2018	CSI	AVAILABLE
+871	CSI Communications Issue July 2017	CSI	AVAILABLE
+872	CSI Communications Issue Dec 2017	CSI	AVAILABLE
+873	CSI Communications Issue Oct 2017	CSI	AVAILABLE
+874	CSI Communications Issue Sept 2017	CSI	AVAILABLE
+875	International Conference on Communication & Control	nan	nan
+876	International Conference -ICSC3 Proceedings	nan	nan
+877	International Conference -ICSC3 Proceedings	nan	nan
+878	National Conference -NCSCC Proceedings	nan	nan
+879	National Conference -NCSCC Proceedings	nan	nan
+880	National Conference -NCSCC Proceedings	nan	nan
+881	National Conference -NCSCC Proceedings	nan	nan
+882	National Conference -NCSCC Proceedings	nan	nan
+883	Mechanical E Magazine	nan	nan
+884	The x86 Pc Assembly Language Design & Interfacing	Mohammed Ali Mazidi	nan
+885	Data ware housing in the real world	Sam Anahory, Dennis Murray	nan
+886	Data ware housing in the real world	Sam Anahory, Dennis Murray	nan
+887	Fundamentals of Data Base Systems	Rameez Elmasri, Shamkanth B Navathe	nan
+888	Fundamentals of Data Base Systems	Rameez Elmasri, Shamkanth B Navathe	nan
+889	The Essential Guide to User Interface Design	Wilbert O Galetz	nan
+890	The Essential Guide to User Interface Design	Wilbert O Galetz	nan
+891	ARM System Developers Guide	Andrew N Sloss	nan
+892	Data Mining Concepts & Techniques	Jiawei Han, Micheline Kamber Jian Pei	nan
+893	Data Mining Concepts & Techniques	Jiawei Han, Micheline Kamber Jian Pei	nan
+894	Data Analytics	Anil Maheshwari	nan
+895	Data Analytics	Anil Maheshwari	nan
+896	Descrete Event System Simulation	Jerry Bambs	nan
+897	Hadoop 2 Quick Start Guide	Douglas Eadline	nan
+898	Hadoop 2 Quick Start Guide	Douglas Eadline	nan
+899	IOT Fundamentals	David Hance, Gonzalo Salgueiro	nan
+900	IOT Fundamentals	David Hance, Gonzalo Salgueiro	nan
+901	Analytics in a Big Data world The Essential Guide to Data Science & its Applications	Bart Baisens	nan
+902	Cryptography and Networking Security and Cyber Law	Bernard L.Menezes, Ravinder Kumar	nan
+903	Computer Fundamentals & C Programming	Sumithrabha Das	nan
+904	Internet of Things	Srinivasa K G, Siddesh GM, Hanumantha Raju R	nan
+905	Internet of Things	Srinivasa K G, Siddesh GM, Hanumantha Raju R	nan
+906	C Programming for Problem Solving	Nanjesh Bennur	nan
+907	C Programming for Problem Solving	Nanjesh Bennur	nan
+2	Cryptography and network security	William Stallings	AVAILABLE
+3	Digital Image Processing	Rajael C Gonsalez, Richard E Woods	AVAILABLE
+\.
+
+
+--
+-- Data for Name: mainapp_userprofileinfo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainapp_userprofileinfo (id, phone, semester, user_id) FROM stdin;
+15	9448009833	6	19
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 44, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 19, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 32, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 11, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 30, true);
+
+
+--
+-- Name: mainapp_userprofileinfo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.mainapp_userprofileinfo_id_seq', 15, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: mainapp_bkstat mainapp_bkstat_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_bkstat
+    ADD CONSTRAINT mainapp_bkstat_pkey PRIMARY KEY (bkst);
+
+
+--
+-- Name: mainapp_bookavail mainapp_bookavail_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_bookavail
+    ADD CONSTRAINT mainapp_bookavail_pkey PRIMARY KEY (bk);
+
+
+--
+-- Name: mainapp_bookslent mainapp_bookslent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_bookslent
+    ADD CONSTRAINT mainapp_bookslent_pkey PRIMARY KEY ("AccesssionNumber_id");
+
+
+--
+-- Name: mainapp_libraryallbooks mainapp_libraryallbooks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_libraryallbooks
+    ADD CONSTRAINT mainapp_libraryallbooks_pkey PRIMARY KEY ("AccesssionNumber");
+
+
+--
+-- Name: mainapp_userprofileinfo mainapp_userprofileinfo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_userprofileinfo
+    ADD CONSTRAINT mainapp_userprofileinfo_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mainapp_userprofileinfo mainapp_userprofileinfo_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_userprofileinfo
+    ADD CONSTRAINT mainapp_userprofileinfo_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: mainapp_bkstat_bkst_9e46bdad_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainapp_bkstat_bkst_9e46bdad_like ON public.mainapp_bkstat USING btree (bkst text_pattern_ops);
+
+
+--
+-- Name: mainapp_bookavail_bk_56ac14d0_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainapp_bookavail_bk_56ac14d0_like ON public.mainapp_bookavail USING btree (bk text_pattern_ops);
+
+
+--
+-- Name: mainapp_bookslent_status_id_c35e9bb0; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainapp_bookslent_status_id_c35e9bb0 ON public.mainapp_bookslent USING btree (status_id);
+
+
+--
+-- Name: mainapp_bookslent_status_id_c35e9bb0_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainapp_bookslent_status_id_c35e9bb0_like ON public.mainapp_bookslent USING btree (status_id text_pattern_ops);
+
+
+--
+-- Name: mainapp_bookslent_user_id_85645e0e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainapp_bookslent_user_id_85645e0e ON public.mainapp_bookslent USING btree (user_id);
+
+
+--
+-- Name: mainapp_libraryallbooks_Availability_id_4bbdc842; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "mainapp_libraryallbooks_Availability_id_4bbdc842" ON public.mainapp_libraryallbooks USING btree ("Availability_id");
+
+
+--
+-- Name: mainapp_libraryallbooks_Availability_id_4bbdc842_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "mainapp_libraryallbooks_Availability_id_4bbdc842_like" ON public.mainapp_libraryallbooks USING btree ("Availability_id" text_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mainapp_bookslent mainapp_bookslent_AccesssionNumber_id_0bb22952_fk_mainapp_l; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_bookslent
+    ADD CONSTRAINT "mainapp_bookslent_AccesssionNumber_id_0bb22952_fk_mainapp_l" FOREIGN KEY ("AccesssionNumber_id") REFERENCES public.mainapp_libraryallbooks("AccesssionNumber") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mainapp_bookslent mainapp_bookslent_status_id_c35e9bb0_fk_mainapp_bkstat_bkst; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_bookslent
+    ADD CONSTRAINT mainapp_bookslent_status_id_c35e9bb0_fk_mainapp_bkstat_bkst FOREIGN KEY (status_id) REFERENCES public.mainapp_bkstat(bkst) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mainapp_bookslent mainapp_bookslent_user_id_85645e0e_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_bookslent
+    ADD CONSTRAINT mainapp_bookslent_user_id_85645e0e_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mainapp_libraryallbooks mainapp_libraryallbo_Availability_id_4bbdc842_fk_mainapp_b; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_libraryallbooks
+    ADD CONSTRAINT "mainapp_libraryallbo_Availability_id_4bbdc842_fk_mainapp_b" FOREIGN KEY ("Availability_id") REFERENCES public.mainapp_bookavail(bk) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mainapp_userprofileinfo mainapp_userprofileinfo_user_id_df235e01_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainapp_userprofileinfo
+    ADD CONSTRAINT mainapp_userprofileinfo_user_id_df235e01_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
